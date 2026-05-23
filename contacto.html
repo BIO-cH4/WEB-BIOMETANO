@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es-MX"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Contacto · Hablar con un especialista | Biometano</title>
+<meta name="description" content="Conversa con un especialista en biogás y biometano. Teléfono, WhatsApp, correo y formulario para evaluación técnica de tu proyecto."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/site.css"/>
+<style>
+  .contact-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:80px; align-items:start}
+  @media (max-width:900px){ .contact-grid{grid-template-columns:1fr; gap:48px} }
+  .channels{display:flex; flex-direction:column; gap:0; border-top:1px solid var(--line)}
+  .channel{display:grid; grid-template-columns:140px 1fr auto; gap:24px; padding:24px 0; border-bottom:1px solid var(--line); align-items:center; text-decoration:none}
+  .channel-label{font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-3)}
+  .channel-value{font-family:var(--serif); font-size:24px; font-weight:300; letter-spacing:-0.01em; color:var(--ink); line-height:1.1}
+  .channel-value em{font-style:italic; color:var(--accent-ink)}
+  .channel-cta{font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent-ink); transition: transform .2s}
+  .channel:hover .channel-cta{transform: translateX(4px)}
+  .channel:hover .channel-value{color:var(--accent-ink)}
+  @media (max-width:700px){ .channel{grid-template-columns:1fr; gap:6px} .channel-cta{display:none} }
+
+  .meta-card{padding:32px; background:var(--bg-2); border:1px solid var(--line); border-top:2px solid var(--accent)}
+  .meta-card h4{font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-3); margin-bottom:14px}
+  .meta-card p{font-size:15px; line-height:1.55; color:var(--ink-2)}
+  .meta-card + .meta-card{margin-top:24px}
+</style>
+</head>
+<body data-page="contacto"><div data-slot="header"></div>
+
+<div class="wrap"><div class="crumbs"><a href="index.html">Inicio</a><span>/</span><b>Contacto</b></div></div>
+
+<section class="page-hero"><div class="wrap">
+  <span class="eyebrow">Contacto</span>
+  <h1>Hablemos <em>de tu</em> proyecto.</h1>
+  <p class="lede">Atendemos consultas técnicas y comerciales de lunes a viernes. Para evaluar un proyecto necesitamos saber el tipo de residuo, volumen estimado y el destino energético previsto.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="contact-grid">
+    <div>
+      <div class="sec-num" style="margin-bottom:32px">§ 01<b>Canales directos</b></div>
+
+      <div class="channels">
+        <a class="channel" href="https://wa.me/529993440904" target="_blank" rel="noopener">
+          <span class="channel-label">WhatsApp</span>
+          <span class="channel-value"><em>+52 999 344 0904</em></span>
+          <span class="channel-cta">Abrir chat →</span>
+        </a>
+        <a class="channel" href="tel:+529993440904">
+          <span class="channel-label">Teléfono</span>
+          <span class="channel-value">+52 999 344 0904</span>
+          <span class="channel-cta">Llamar →</span>
+        </a>
+        <a class="channel" href="mailto:gas@biometano.mx">
+          <span class="channel-label">Correo</span>
+          <span class="channel-value">gas@biometano.mx</span>
+          <span class="channel-cta">Escribir →</span>
+        </a>
+        <a class="channel" href="https://www.linkedin.com/company/biometano-mx/" target="_blank" rel="noopener">
+          <span class="channel-label">LinkedIn</span>
+          <span class="channel-value">company/biometano-mx</span>
+          <span class="channel-cta">Visitar →</span>
+        </a>
+      </div>
+
+      <div style="margin-top:48px">
+        <a class="btn-primary" href="evaluar-proyecto.html">Solicitar evaluación técnica
+          <svg class="arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <div class="meta-card">
+        <h4>Horarios de atención</h4>
+        <p>Lunes a viernes · 9:00 – 18:00 (hora del centro de México). Las consultas vía WhatsApp y correo se responden el mismo día hábil.</p>
+      </div>
+      <div class="meta-card">
+        <h4>Sede</h4>
+        <p>México · Operación nacional. Proyectos en Yucatán, Jalisco, Estado de México y zona norte.</p>
+      </div>
+      <div class="meta-card">
+        <h4>Antes de escribir</h4>
+        <p>Si vas a proponernos un proyecto, ten a la mano: tipo de residuo, volumen mensual o cabezas de animales, ubicación y destino que buscas para el gas (térmico, eléctrico, vehicular o ducto virtual).</p>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<div data-slot="footer"></div><script src="assets/site.js"></script></body></html>

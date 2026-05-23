@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Biometano · Plantas de biogás y biometano en México</title>
+<meta name="description" content="Empresa mexicana especializada en plantas de biogás y biometano. Diseñamos, construimos y operamos sistemas de aprovechamiento del biogás: acondicionamiento, upgrading y biometano de alta pureza." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/site.css" />
+<style>
+  /* ------- HERO grande de la home ------- */
+  .home-hero{padding:80px 0 90px; border-bottom:1px solid var(--line); overflow:hidden}
+  .home-hero h1{font-family:var(--serif); font-weight:300; font-size:clamp(56px, 8.4vw, 132px); line-height:0.94; letter-spacing:-0.035em; margin-top:32px; font-variation-settings: "opsz" 144;}
+  .home-hero h1 em{font-style:italic; color:var(--accent-ink); font-weight:400}
+  .home-hero-grid{display:grid; grid-template-columns: 1.5fr 1fr; gap:100px; align-items:end; margin-top:56px}
+  .home-hero-lede{font-size:20px; line-height:1.45; color:var(--ink-2); max-width:56ch; text-wrap:pretty}
+  .home-hero-lede + p{margin-top:14px; font-size:16px; color:var(--ink-3); max-width:56ch}
+  .home-hero-meta{display:flex; flex-direction:column; gap:20px; font-size:13px; color:var(--ink-3); border-left:2px solid var(--accent); padding-left:24px}
+  .home-hero-meta dt{font-family:var(--mono); font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase}
+  .home-hero-meta dd{color:var(--ink); font-size:14.5px; margin-top:4px; font-weight:500}
+  .hero-actions{display:flex; gap:14px; margin-top:44px; align-items:center; flex-wrap:wrap}
+  @media (max-width:900px){ .home-hero-grid{grid-template-columns:1fr; gap:36px} }
+
+  /* scroll cue */
+  .scroll-cue{position:absolute; right:24px; bottom:24px; display:inline-flex; align-items:center; gap:10px; padding:10px 14px; background:color-mix(in oklab, var(--ink) 78%, transparent); color:var(--bg); font-family:var(--mono); font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; backdrop-filter:blur(6px); border-radius:2px; transition:transform .25s ease, background .2s}
+  .scroll-cue svg{width:12px; height:20px; animation: nudge 1.8s ease-in-out infinite}
+  .scroll-cue:hover{background:var(--accent); color:var(--ink); transform:translateY(-2px)}
+  @keyframes nudge{0%,100%{transform:translateY(0); opacity:.7} 50%{transform:translateY(4px); opacity:1}}
+
+  .ticker{border-bottom:1px solid var(--line); padding:18px 0; overflow:hidden; background:var(--bg-2)}
+  .ticker-in{display:flex; gap:60px; font-family:var(--mono); font-size:12px; color:var(--ink-3); letter-spacing:0.08em; white-space:nowrap; animation: slide 60s linear infinite; text-transform:uppercase}
+  .ticker span b{color:var(--ink); font-weight:500}
+  .ticker span em{color:var(--accent-ink); font-style:normal}
+  @keyframes slide{from{transform:translateX(0)} to{transform:translateX(-50%)}}
+
+  /* Solución hub */
+  .sol-row{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--ink); border-bottom:1px solid var(--line)}
+  .sol-row > a{padding:42px 32px 50px; border-right:1px solid var(--line); display:flex; flex-direction:column; min-height:340px; transition:background .2s}
+  .sol-row > a:last-child{border-right:0}
+  .sol-row > a:hover{background:var(--bg-2)}
+  .sol-row .ix{font-family:var(--mono); font-size:11px; color:var(--accent-ink); letter-spacing:0.14em; text-transform:uppercase}
+  .sol-row h3{font-family:var(--serif); font-size:34px; font-weight:300; margin:14px 0 12px; letter-spacing:-0.02em; line-height:1.05}
+  .sol-row p{color:var(--ink-2); font-size:14.5px; max-width:36ch; flex:1}
+  .sol-row .more{font-family:var(--mono); font-size:11px; color:var(--accent-ink); letter-spacing:0.14em; text-transform:uppercase; margin-top:22px; display:inline-flex; gap:8px}
+  @media (max-width:900px){ .sol-row{grid-template-columns:1fr} .sol-row > a{border-right:0; border-bottom:1px solid var(--line)} }
+</style>
+</head>
+<body data-page="home">
+
+<div data-slot="header"></div>
+
+<!-- ============ HERO HOME ============ -->
+<main>
+<section class="home-hero">
+  <div class="wrap">
+    <h1>Aprovechamos<br/>el biogás. Producimos<br/><em>biometano</em>.</h1>
+
+    <div class="home-hero-grid">
+      <div>
+        <p class="home-hero-lede">
+          Diseñamos, construimos y operamos plantas de biogás y biometano en México. Convertimos residuos orgánicos en gas natural renovable de alta pureza para uso térmico, eléctrico, vehicular y comercial.
+        </p>
+        <p>
+          Trabajamos por niveles: desde acondicionamiento básico para motores y calderas hasta upgrading completo a biometano con especificaciones de gas natural.
+        </p>
+      </div>
+      <dl class="home-hero-meta">
+        <div><dt>Alcance</dt><dd>Diseño · Construcción · O&amp;M</dd></div>
+        <div><dt>Calidad de salida</dt><dd>Biometano CH₄ ≥ 97 %</dd></div>
+        <div><dt>Aplicaciones</dt><dd>Térmico · Eléctrico · GNC · Ducto virtual</dd></div>
+      </dl>
+    </div>
+
+    <div class="hero-actions">
+      <a class="btn-primary" href="evaluar-proyecto.html">Evaluar proyecto
+        <svg class="arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+      <a class="btn-ghost" href="planta-de-biometano.html">Conocer la planta de biometano →</a>
+    </div>
+
+    <div class="cover-img" style="margin-top:72px; aspect-ratio:16/7">
+      <img src="assets/biogas-mexico.jpg" alt="Planta de biogás y biometano — vista aérea"/>
+      <div class="cap">Planta de biogás y biometano · México</div>
+      <a href="#soluciones" class="scroll-cue" aria-label="Explorar soluciones">
+        <span>Explorar</span>
+        <svg viewBox="0 0 14 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 2v18M2 15l5 5 5-5"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ TICKER ============ -->
+<div class="ticker">
+  <div class="ticker-in">
+    <span>Más opciones para aprovechar el biogás</span><span>●</span>
+    <span>Acondicionamiento · Upgrading · Biometano</span><span>●</span>
+    <span><em>CH₄ ≥ 97 %</em> en gas de salida</span><span>●</span>
+    <span>Verificación con analizadores en sitio</span><span>●</span>
+    <span>Ingeniería · EPC · O&amp;M</span><span>●</span>
+    <span>Más opciones para aprovechar el biogás</span><span>●</span>
+    <span>Acondicionamiento · Upgrading · Biometano</span><span>●</span>
+    <span><em>CH₄ ≥ 97 %</em> en gas de salida</span><span>●</span>
+    <span>Verificación con analizadores en sitio</span><span>●</span>
+    <span>Ingeniería · EPC · O&amp;M</span><span>●</span>
+  </div>
+</div>
+
+<!-- ============ SOLUCIONES — HUB CORTO ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">§ 01<b>Soluciones</b></div>
+      <div>
+        <h2 class="sec-title">Aprovecha el biogás según tu <em>objetivo</em>.</h2>
+        <p class="sec-lede">No todos los proyectos requieren biometano. Diseñamos el nivel de tratamiento adecuado al destino del gas — desde acondicionamiento básico hasta upgrading completo y comercialización de gas natural renovable.</p>
+      </div>
+    </div>
+
+    <div class="sol-row">
+      <a href="acondicionamiento-biogas.html">
+        <div class="ix">01 · Acondicionamiento</div>
+        <h3>Tratamiento de biogás</h3>
+        <p>Remoción de H₂S, humedad y partículas. Indicado para uso térmico directo o motogeneración.</p>
+        <div class="more">Conocer → </div>
+      </a>
+      <a href="upgrading-biogas.html">
+        <div class="ix">02 · Upgrading</div>
+        <h3>Upgrading de biogás</h3>
+        <p>Separación profunda de CO₂ y compuestos no deseados para alcanzar calidad de gas natural.</p>
+        <div class="more">Conocer →</div>
+      </a>
+      <a href="planta-de-biometano.html">
+        <div class="ix">03 · Biometano</div>
+        <h3>Planta de biometano</h3>
+        <p>Sistema completo de producción de biometano con absorción química en ciclo cerrado.</p>
+        <div class="more">Conocer →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APLICACIONES — HUB CORTO ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">§ 02<b>Aplicaciones</b></div>
+      <div>
+        <h2 class="sec-title">El valor está en <em>usar</em> o <em>vender</em> el gas correctamente.</h2>
+        <p class="sec-lede">Cada proyecto encuentra su mejor destino. Operación interna del cliente, monetización vía ducto virtual o ruta a usuarios industriales.</p>
+      </div>
+    </div>
+
+    <div class="hub-grid">
+      <a class="hub-card" href="biometano-industria.html">
+        <div><div class="ix">01 · Industria</div><h3>Biometano industrial</h3><p>Calderas, hornos, secadores y procesos térmicos con sustitución directa de gas natural.</p></div>
+        <span class="more">Detalle →</span>
+      </a>
+      <a class="hub-card" href="biometano-transporte.html">
+        <div><div class="ix">02 · Transporte</div><h3>Biometano vehicular</h3><p>GNC y GNL para flotas pesadas, transporte y estaciones de servicio.</p></div>
+        <span class="more">Detalle →</span>
+      </a>
+      <a class="hub-card" href="ducto-virtual.html">
+        <div><div class="ix">03 · Ducto virtual</div><h3>Distribución sin red</h3><p>Biometano comprimido entregado a usuarios sin acceso a red de gas natural.</p></div>
+        <span class="more">Detalle →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLANTA DESTACADO ============ -->
+<section style="background:var(--ink); color:var(--bg); border-bottom:0">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:40px">
+      <div class="sec-num" style="color:oklch(0.7 0.01 80)">§ 03<b style="color:var(--accent)">Planta de biometano</b></div>
+      <div>
+        <h2 class="sec-title" style="color:var(--bg)">Una planta <em style="color:var(--accent)">eficiente</em><br/>y confiable.</h2>
+        <p class="sec-lede" style="color:oklch(0.78 0.01 80)">Empleamos absorción química en ciclo cerrado para producir biometano con especificaciones de gas natural. Conoce el proceso, la calidad de salida y la verificación en sitio.</p>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1.15fr 1fr; gap:60px; align-items:start" class="planta-block">
+      <div style="aspect-ratio:5/4; border-radius:4px; overflow:hidden; position:relative">
+        <img src="assets/render-contenedor-modular.png" alt="Planta modular de biometano" style="width:100%; height:100%; object-fit:cover"/>
+      </div>
+      <div>
+        <h3 style="font-family:var(--serif); font-size:34px; font-weight:300; letter-spacing:-0.02em; line-height:1.1; margin-bottom:18px">Absorción química con <em style="font-style:italic; color:var(--accent)">aminas</em>.</h3>
+        <p style="color:oklch(0.82 0.01 80); font-size:16px; max-width:54ch; margin-bottom:14px">El biogás entra en una torre donde el solvente captura CO₂ y H₂S. El metano sale purificado. El solvente se regenera térmicamente y vuelve al ciclo, reduciendo consumo de químicos.</p>
+
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin-top:32px; border-top:1px solid oklch(0.38 0.008 70); border-bottom:1px solid oklch(0.38 0.008 70)">
+          <div style="padding:22px 18px 22px 0; border-right:1px solid oklch(0.38 0.008 70)">
+            <div style="font-family:var(--serif); font-weight:300; font-size:42px; letter-spacing:-0.03em; line-height:1; color:var(--bg)">97<sup style="font-size:0.36em; color:var(--accent); font-style:italic">%+</sup></div>
+            <div style="font-family:var(--mono); font-size:10.5px; letter-spacing:0.14em; color:oklch(0.7 0.01 80); margin-top:10px; text-transform:uppercase">Pureza CH₄</div>
+          </div>
+          <div style="padding:22px 18px; border-right:1px solid oklch(0.38 0.008 70)">
+            <div style="font-family:var(--serif); font-weight:300; font-size:42px; letter-spacing:-0.03em; line-height:1; color:var(--bg)">24<sup style="font-size:0.36em; color:var(--accent); font-style:italic">/7</sup></div>
+            <div style="font-family:var(--mono); font-size:10.5px; letter-spacing:0.14em; color:oklch(0.7 0.01 80); margin-top:10px; text-transform:uppercase">Monitoreo</div>
+          </div>
+          <div style="padding:22px 0 22px 18px">
+            <div style="font-family:var(--serif); font-weight:300; font-size:42px; letter-spacing:-0.03em; line-height:1; color:var(--bg)">Ciclo<sup style="font-size:0.36em; color:var(--accent); font-style:italic">↺</sup></div>
+            <div style="font-family:var(--mono); font-size:10.5px; letter-spacing:0.14em; color:oklch(0.7 0.01 80); margin-top:10px; text-transform:uppercase">Cerrado</div>
+          </div>
+        </div>
+
+        <div style="margin-top:36px; display:flex; gap:14px; flex-wrap:wrap">
+          <a class="btn-primary" href="planta-de-biometano.html" style="background:var(--accent)">Ver planta de biometano →</a>
+          <a class="btn-ghost" href="calidad-biometano.html" style="color:var(--bg); border-color:oklch(0.5 0.008 70)">Calidad y norma</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTORES — preview ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">§ 04<b>Sectores</b></div>
+      <div>
+        <h2 class="sec-title">Donde el residuo se vuelve <em>energía</em>.</h2>
+        <p class="sec-lede">Trabajamos con sectores donde el residuo orgánico tiene volumen y consistencia para sostener un proyecto de aprovechamiento energético.</p>
+      </div>
+    </div>
+
+    <div class="hub-grid" style="grid-template-columns:repeat(4,1fr)">
+      <a class="hub-card hub-card-img" href="sector-porcicultura.html"><div class="hub-img"><img src="assets/porcicultura.jpg" alt="Porcicultura"/></div><div><div class="ix">01 · Pecuario</div><h3 style="font-size:24px">Granjas porcinas</h3><p>Estiércol porcino con digestión estable.</p></div><span class="more">→</span></a>
+      <a class="hub-card hub-card-img" href="sector-lecheria.html"><div class="hub-img"><img src="assets/establo-lechero.jpg" alt="Lechería"/></div><div><div class="ix">02 · Lechero</div><h3 style="font-size:24px">Establos lecheros</h3><p>Estiércol bovino y co-digestión.</p></div><span class="more">→</span></a>
+      <a class="hub-card hub-card-img" href="sector-residuos.html"><div class="hub-img"><img src="assets/ptar-mexico.jpg" alt="PTAR· vista aérea de tanques"/></div><div><div class="ix">03 · Aguas</div><h3 style="font-size:24px">PTAR</h3><p>Aprovechamiento de lodos y biogás.</p></div><span class="more">→</span></a>
+      <a class="hub-card hub-card-img" href="sector-agroindustria.html"><div class="hub-img"><img src="assets/cosecha-cana.png" alt="Agroindustria"/></div><div><div class="ix">04 · Agro</div><h3 style="font-size:24px">Agroindustria</h3><p>Bagazo, frutales y residuos vegetales.</p></div><span class="more">→</span></a>
+    </div>
+    <div style="margin-top:24px"><a class="btn-ghost" href="sectores.html">Ver todos los sectores →</a></div>
+  </div>
+</section>
+
+<!-- ============ NOSOTROS ============ -->
+<section style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:36px">
+      <div class="sec-num">§ 05<b>Empresa</b></div>
+      <div></div>
+    </div>
+    <blockquote style="font-family:var(--serif); font-size:clamp(36px, 4.6vw, 64px); font-weight:300; line-height:1.08; letter-spacing:-0.025em; max-width:24ch; text-wrap:balance">
+      <span style="color:var(--accent); font-size:1.2em; line-height:0; vertical-align:-0.1em">"</span>Convertimos cada planta de biogás en un sistema más <em style="font-style:italic; color:var(--accent-ink)">eficiente y confiable</em>.
+    </blockquote>
+    <div style="margin-top:36px; font-family:var(--mono); font-size:12px; letter-spacing:0.12em; color:var(--ink-3); text-transform:uppercase">
+      <b style="color:var(--ink); font-weight:500; display:block; margin-bottom:4px">biometano</b>
+      Empresa mexicana especializada en gas natural renovable<br/>
+      Ingeniería · Construcción · Operación · Mantenimiento
+    </div>
+    <div style="margin-top:32px; display:flex; gap:14px; flex-wrap:wrap">
+      <a class="btn-ghost" href="empresa.html">Conocer la empresa →</a>
+      <a class="btn-ghost" href="contacto.html">Hablar con un especialista →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONOCIMIENTO ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">§ 06<b>Conocimiento</b></div>
+      <div>
+        <h2 class="sec-title">Documentación técnica y <em>contenido</em>.</h2>
+      </div>
+    </div>
+    <div class="related" style="grid-template-columns:repeat(4,1fr)">
+      <a href="art-biogas-vs-biometano.html"><div class="chip">Fundamentos</div><h4>Biogás vs. biometano</h4></a>
+      <a href="art-upgrading-tecnologias.html"><div class="chip">Tecnología</div><h4>Tecnologías de upgrading</h4></a>
+      <a href="art-norma-biometano.html"><div class="chip">Regulación</div><h4>Avance regulatorio en México</h4></a>
+      <a href="art-ducto-virtual.html"><div class="chip">Logística</div><h4>Ducto virtual de biometano</h4></a>
+    </div>
+    <div style="margin-top:20px"><a class="btn-ghost" href="conocimiento.html">Ver todo el contenido →</a></div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta-inline" style="margin:0; border-radius:0; padding:120px 0">
+  <div class="wrap" style="display:grid; grid-template-columns:1.4fr 1fr; gap:80px; align-items:center">
+    <div>
+      <div class="sec-num" style="color:oklch(0.65 0.008 70); margin-bottom:24px">§ 07<b style="color:var(--accent)">Evaluar</b></div>
+      <h2 style="font-family:var(--serif); font-size:clamp(48px, 6vw, 88px); font-weight:300; letter-spacing:-0.03em; line-height:0.95; color:var(--bg)">Evalúa tu <em style="font-style:italic; color:var(--accent)">proyecto</em>.</h2>
+      <p style="color:oklch(0.78 0.01 80); max-width:46ch; font-size:16px; margin-top:24px">Analizamos tu residuo, tu demanda energética y la mejor ruta técnica y económica para monetizar el biogás.</p>
+    </div>
+    <div>
+      <a class="btn-primary" href="evaluar-proyecto.html" style="background:var(--accent); padding:18px 28px; font-size:15px">Solicitar evaluación
+        <svg class="arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+      <p style="color:oklch(0.65 0.008 70); margin-top:24px; font-family:var(--mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase">gas@biometano.mx · +52 999 344 0904</p>
+    </div>
+  </div>
+</section>
+
+<div data-slot="footer"></div>
+<script src="assets/site.js"></script>
+</body>
+</html>

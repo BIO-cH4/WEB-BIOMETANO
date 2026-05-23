@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /index-bundle.html
+Disallow: /index-print.html
+Disallow: /index-standalone.html
+
+Sitemap: https://biometano.mx/sitemap.xml
