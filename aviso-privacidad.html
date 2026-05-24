@@ -1,97 +1,300 @@
 <!doctype html>
 <html lang="es-MX"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Aviso de privacidad | Biometano</title>
-<meta name="description" content="Aviso de privacidad integral conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) de México."/>
+<title>Aviso de Privacidad | Biometano</title>
+<meta name="description" content="Aviso de Privacidad Integral de Biometano conforme a la LFPDPPP. Tratamiento de datos personales, finalidades, derechos ARCO y datos de contacto."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="assets/site.css"/>
+
 <style>
-  .legal-wrap{max-width:760px; margin:0 auto}
-  .legal-wrap h2{font-family:var(--serif); font-weight:300; font-size:28px; letter-spacing:-0.02em; margin:48px 0 16px; color:var(--ink)}
-  .legal-wrap h2:first-of-type{margin-top:0}
-  .legal-wrap h3{font-family:var(--mono); font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent-ink); margin:32px 0 12px; font-weight:500}
-  .legal-wrap p, .legal-wrap li{font-size:15.5px; line-height:1.65; color:var(--ink-2); max-width:none}
-  .legal-wrap p{margin-bottom:14px}
-  .legal-wrap ul{margin:0 0 14px 18px}
-  .legal-wrap li{margin-bottom:6px}
-  .legal-wrap strong{color:var(--ink); font-weight:500}
-  .legal-toc{padding:24px; background:var(--bg-2); border-left:2px solid var(--accent); margin-bottom:48px; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; color:var(--ink-2)}
-  .legal-toc b{display:block; text-transform:uppercase; letter-spacing:0.14em; color:var(--ink-3); font-size:10.5px; margin-bottom:10px; font-weight:500}
-  .legal-toc ol{margin:0 0 0 16px; padding:0}
-  .legal-toc li{margin:4px 0}
+.aviso-section{padding:64px 0 110px}
+.aviso-grid{
+  display:grid; grid-template-columns: 240px minmax(0, 1fr); gap:64px;
+  align-items:start;
+}
+@media (max-width:980px){ .aviso-grid{grid-template-columns:1fr; gap:32px} }
+
+.aviso-toc{
+  position:sticky; top:96px;
+  border-left:1px solid var(--line); padding-left:20px;
+}
+.aviso-toc h4{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase;
+  color:var(--accent-ink); font-weight:500; margin-bottom:14px;
+}
+.aviso-toc ol{list-style:none; counter-reset:t; display:flex; flex-direction:column; gap:6px; padding:0}
+.aviso-toc li{counter-increment:t; font-size:13px}
+.aviso-toc a{
+  display:flex; gap:10px; color:var(--ink-2); padding:4px 0;
+  transition: color .15s; line-height:1.35;
+}
+.aviso-toc a::before{
+  content:counter(t, decimal-leading-zero);
+  font-family:var(--mono); font-size:10px; color:var(--ink-3); letter-spacing:0.04em;
+  min-width:18px;
+}
+.aviso-toc a:hover{color:var(--accent-ink)}
+.aviso-toc a.is-active{color:var(--ink); font-weight:500}
+.aviso-toc a.is-active::before{color:var(--accent-ink)}
+@media (max-width:980px){ .aviso-toc{position:static; top:auto; border-left:0; padding-left:0; border-top:1px solid var(--line); padding-top:24px} }
+
+.aviso-prose{max-width:72ch; font-size:16px; line-height:1.65; color:var(--ink-2)}
+.aviso-prose .meta-bar{
+  font-family:var(--mono); font-size:11px; letter-spacing:0.1em; color:var(--ink-3);
+  text-transform:uppercase; padding-bottom:18px; border-bottom:1px solid var(--line);
+  display:flex; flex-wrap:wrap; gap:24px;
+}
+.aviso-prose .meta-bar b{color:var(--ink); font-weight:500; letter-spacing:0.06em}
+.aviso-prose h2{
+  font-family:var(--serif); font-weight:300; font-size:30px; letter-spacing:-0.022em;
+  color:var(--ink); margin:48px 0 14px; line-height:1.1;
+  font-variation-settings:"opsz" 144;
+  scroll-margin-top:96px;
+}
+.aviso-prose h2 .h-num{
+  font-family:var(--mono); font-size:11px; color:var(--accent-ink); letter-spacing:0.14em;
+  display:block; text-transform:uppercase; margin-bottom:6px; font-weight:500;
+}
+.aviso-prose h3{
+  font-family:var(--serif); font-weight:400; font-size:20px; letter-spacing:-0.01em;
+  color:var(--ink); margin:24px 0 10px;
+}
+.aviso-prose p{margin-bottom:14px; text-wrap:pretty}
+.aviso-prose ul{margin:10px 0 18px 22px}
+.aviso-prose li{margin-bottom:8px}
+.aviso-prose strong{color:var(--ink); font-weight:500}
+.aviso-prose a{
+  color:var(--accent-ink);
+  border-bottom:1px solid color-mix(in oklab, var(--accent-ink) 35%, transparent);
+  transition:border-color .15s;
+}
+.aviso-prose a:hover{border-color:var(--accent-ink)}
+
+.aviso-callout{
+  background:var(--bg-2); border:1px solid var(--line); border-left:3px solid var(--accent);
+  padding:22px 24px; margin:24px 0; font-size:14.5px; line-height:1.55;
+}
+.aviso-callout b{color:var(--ink); font-weight:500}
+
+.aviso-table{
+  border:1px solid var(--line); margin:18px 0 22px; background:var(--bg-2);
+  font-size:14px;
+}
+.aviso-table .row{
+  display:grid; grid-template-columns: 1fr 2fr; gap:24px;
+  padding:14px 20px; border-bottom:1px solid var(--line);
+  align-items:baseline;
+}
+.aviso-table .row:last-child{border-bottom:0}
+.aviso-table .row.head{
+  background:var(--ink); color:var(--bg);
+  font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase;
+}
+.aviso-table .row.head > div{color:oklch(0.78 0.008 80)}
+.aviso-table .k{font-family:var(--mono); font-size:11.5px; letter-spacing:0.06em; color:var(--ink); font-weight:500; text-transform:uppercase}
+.aviso-table .v{color:var(--ink-2)}
+
+.aviso-finalities{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:20px 0 28px}
+.aviso-fin{
+  border:1px solid var(--line); background:var(--bg-2); padding:22px 22px;
+}
+.aviso-fin h4{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--accent-ink); margin-bottom:10px; font-weight:500;
+}
+.aviso-fin.secundarias h4{color:var(--ink-3)}
+.aviso-fin ul{margin:0 0 0 18px; font-size:14px; color:var(--ink-2); line-height:1.5}
+.aviso-fin ul li{margin-bottom:6px}
+@media (max-width:760px){ .aviso-finalities{grid-template-columns:1fr} }
+
+.aviso-cta-row{
+  background:var(--ink); color:var(--bg);
+  padding:32px 36px; margin:48px 0 0;
+  display:grid; grid-template-columns: 1fr auto; gap:32px; align-items:center;
+}
+.aviso-cta-row h3{
+  font-family:var(--serif); font-weight:300; font-size:26px; letter-spacing:-0.015em;
+  line-height:1.1;
+}
+.aviso-cta-row h3 em{color:var(--accent); font-style:italic}
+.aviso-cta-row p{color:oklch(0.78 0.01 80); margin-top:6px; font-size:14px; max-width:54ch}
+.aviso-cta-row .btn-primary{background:var(--accent)}
+@media (max-width:760px){ .aviso-cta-row{grid-template-columns:1fr; padding:24px} }
 </style>
 </head>
-<body data-page="legal"><div data-slot="header"></div>
 
-<div class="wrap"><div class="crumbs"><a href="index.html">Inicio</a><span>/</span><b>Aviso de privacidad</b></div></div>
+<body data-page="aviso-privacidad"><div data-slot="header"></div>
+
+<div class="wrap"><div class="crumbs"><a href="index.html">Inicio</a><span>/</span><a href="legal.html">Legal</a><span>/</span><b>Aviso de privacidad</b></div></div>
 
 <section class="page-hero"><div class="wrap">
-  <span class="eyebrow">Legal · LFPDPPP</span>
+  <span class="eyebrow">Legal · Protección de datos personales</span>
   <h1>Aviso de <em>privacidad</em>.</h1>
-  <p class="lede">Documento conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares y su reglamento. Última actualización: enero 2026.</p>
+  <div class="page-hero-grid">
+    <p class="lede">Tu información personal se trata con apego a la <strong>Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)</strong>. Aquí explicamos qué datos recabamos, para qué los usamos y cómo puedes ejercer tus derechos ARCO.</p>
+    <dl class="page-hero-meta">
+      <div><dt>Responsable</dt><dd>Biometano S.A. de C.V.</dd></div>
+      <div><dt>Vigencia</dt><dd>Desde 1 de enero de 2026</dd></div>
+      <div><dt>Última actualización</dt><dd>24 de mayo de 2026</dd></div>
+    </dl>
+  </div>
 </div></section>
 
-<section><div class="wrap"><div class="legal-wrap">
+<section class="aviso-section"><div class="wrap">
+<div class="aviso-grid">
 
-<div class="legal-toc">
-  <b>Contenido</b>
-  <ol>
-    <li>Identidad y domicilio del responsable</li>
-    <li>Datos personales que se recaban</li>
-    <li>Finalidades del tratamiento</li>
-    <li>Transferencias</li>
-    <li>Derechos ARCO</li>
-    <li>Revocación del consentimiento</li>
-    <li>Uso de cookies y tecnologías similares</li>
-    <li>Cambios al aviso</li>
-  </ol>
+  <!-- TOC -->
+  <nav class="aviso-toc" aria-label="Índice del aviso">
+    <h4>Contenido</h4>
+    <ol>
+      <li><a href="#responsable">Responsable del tratamiento</a></li>
+      <li><a href="#datos">Datos personales que recabamos</a></li>
+      <li><a href="#finalidades">Finalidades del tratamiento</a></li>
+      <li><a href="#transferencias">Transferencias</a></li>
+      <li><a href="#arco">Derechos ARCO</a></li>
+      <li><a href="#revocacion">Revocación del consentimiento</a></li>
+      <li><a href="#cookies">Cookies y tecnologías</a></li>
+      <li><a href="#cambios">Cambios al aviso</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ol>
+  </nav>
+
+  <!-- CONTENT -->
+  <article class="aviso-prose">
+
+    <div class="meta-bar">
+      <span>Documento <b>BMTN-AVPR-001</b></span>
+      <span>Versión <b>2.1</b></span>
+      <span>Conforme a <b>LFPDPPP · RLFPDPPP</b></span>
+    </div>
+
+    <p style="margin-top:24px">En <strong>Biometano</strong> entendemos que tus datos personales son sensibles y que confiárnoslos implica una responsabilidad. Este Aviso de Privacidad Integral describe cómo los protegemos, las finalidades para las que los usamos y los mecanismos a tu disposición para controlarlos.</p>
+
+    <h2 id="responsable"><span class="h-num">§ 01</span>Responsable del tratamiento</h2>
+    <p>El responsable del tratamiento de tus datos personales es <strong>Biometano S.A. de C.V.</strong> (en adelante, "Biometano"), con domicilio en Mérida, Yucatán, México, y correo electrónico para asuntos de privacidad en <a href="mailto:datos@biometano.mx">datos@biometano.mx</a>.</p>
+
+    <div class="aviso-callout">
+      <b>Departamento de privacidad.</b> Atiende solicitudes ARCO, dudas sobre tratamiento de datos y quejas. Tiempo de respuesta máximo: <strong>20 días hábiles</strong> conforme al artículo 32 de la LFPDPPP.
+    </div>
+
+    <h2 id="datos"><span class="h-num">§ 02</span>Datos personales que recabamos</h2>
+    <p>Recabamos únicamente los datos necesarios para responder a tus solicitudes y prestarte servicios. La siguiente tabla resume las categorías:</p>
+
+    <div class="aviso-table">
+      <div class="row head"><div>Categoría</div><div>Datos específicos</div></div>
+      <div class="row"><div class="k">Identificación</div><div class="v">Nombre completo, cargo, empresa, razón social.</div></div>
+      <div class="row"><div class="k">Contacto</div><div class="v">Correo electrónico corporativo, teléfono, ubicación del proyecto (estado / país).</div></div>
+      <div class="row"><div class="k">Proyecto</div><div class="v">Información técnica del proyecto: sustratos, volúmenes, demanda energética, destino del biometano. <em>No constituye dato personal</em> pero la asociamos a ti como contacto.</div></div>
+      <div class="row"><div class="k">Documental</div><div class="v">Archivos que adjuntas voluntariamente: análisis fisicoquímicos, planos, recibos. Se tratan bajo confidencialidad reforzada.</div></div>
+      <div class="row"><div class="k">Navegación</div><div class="v">Dirección IP, identificadores de sesión, páginas visitadas, agente de usuario.</div></div>
+    </div>
+
+    <p><strong>Datos sensibles.</strong> No solicitamos datos personales sensibles (origen étnico, estado de salud, ideología, etc.). Si los proporcionas voluntariamente en notas abiertas, te pediremos consentimiento expreso adicional.</p>
+
+    <h2 id="finalidades"><span class="h-num">§ 03</span>Finalidades del tratamiento</h2>
+    <p>Tus datos se tratan para las siguientes finalidades, clasificadas en primarias (necesarias) y secundarias (opcionales):</p>
+
+    <div class="aviso-finalities">
+      <div class="aviso-fin">
+        <h4>Primarias · Necesarias</h4>
+        <ul>
+          <li>Responder tu solicitud de evaluación de proyecto.</li>
+          <li>Elaborar un diagnóstico cualitativo preliminar.</li>
+          <li>Agendar y dar seguimiento a llamadas o reuniones.</li>
+          <li>Firmar acuerdos de confidencialidad (NDA) si aplica.</li>
+          <li>Emitir cotizaciones, propuestas técnicas y contratos.</li>
+          <li>Cumplir obligaciones legales, fiscales y contractuales.</li>
+        </ul>
+      </div>
+      <div class="aviso-fin secundarias">
+        <h4>Secundarias · Opcionales</h4>
+        <ul>
+          <li>Invitarte a eventos, webinars y publicaciones técnicas.</li>
+          <li>Enviarte boletines con casos de éxito y novedades regulatorias.</li>
+          <li>Estudios de mercado y mejora de nuestro sitio web.</li>
+        </ul>
+        <p style="font-size:12.5px; color:var(--ink-3); margin-top:14px; line-height:1.4">Puedes oponerte en cualquier momento escribiendo a <a href="mailto:datos@biometano.mx">datos@biometano.mx</a> sin que esto afecte el servicio principal.</p>
+      </div>
+    </div>
+
+    <h2 id="transferencias"><span class="h-num">§ 04</span>Transferencias</h2>
+    <p>Como regla general <strong>no transferimos tus datos a terceros</strong>. Las únicas excepciones son las contempladas en el artículo 37 de la LFPDPPP y los casos siguientes, en los que NO se requiere tu consentimiento:</p>
+    <ul>
+      <li>A autoridades competentes en cumplimiento de obligaciones legales o resoluciones judiciales.</li>
+      <li>A sociedades del mismo grupo corporativo, bajo los mismos términos de este aviso.</li>
+      <li>A proveedores de servicios tecnológicos (alojamiento, correo, CRM) bajo contrato de confidencialidad y figura de "encargado" según el artículo 36 del RLFPDPPP.</li>
+    </ul>
+    <p>Cualquier otra transferencia requerirá tu consentimiento expreso.</p>
+
+    <h2 id="arco"><span class="h-num">§ 05</span>Derechos ARCO</h2>
+    <p>Tienes derecho a <strong>Acceder, Rectificar, Cancelar u Oponerte</strong> al tratamiento de tus datos personales en cualquier momento. Para ejercerlos:</p>
+    <ul>
+      <li>Envía un correo a <a href="mailto:datos@biometano.mx">datos@biometano.mx</a> con el asunto <em>"Solicitud ARCO"</em>.</li>
+      <li>Incluye: nombre completo, correo asociado a tu solicitud original, identificación oficial (INE/pasaporte) y descripción clara del derecho que ejerces.</li>
+      <li>Si actúas mediante representante, anexa carta poder simple firmada ante dos testigos.</li>
+    </ul>
+    <p>Responderemos en un plazo máximo de <strong>20 días hábiles</strong> y, de proceder, daremos efecto a la solicitud dentro de los 15 días hábiles siguientes. El ejercicio de estos derechos es gratuito; sólo cubrirías costos justificados de envío o reproducción de documentos.</p>
+
+    <div class="aviso-callout">
+      <b>Importante.</b> El derecho de cancelación no procede en supuestos donde estemos obligados legalmente a conservar tus datos (por ejemplo, comprobantes fiscales bajo el Código Fiscal de la Federación).
+    </div>
+
+    <h2 id="revocacion"><span class="h-num">§ 06</span>Revocación del consentimiento</h2>
+    <p>Puedes revocar el consentimiento que nos has otorgado para el tratamiento de tus datos personales en cualquier momento, mediante el mismo procedimiento descrito para los derechos ARCO. La revocación no tendrá efectos retroactivos sobre los tratamientos realizados antes de tu solicitud.</p>
+
+    <h2 id="cookies"><span class="h-num">§ 07</span>Cookies y tecnologías de seguimiento</h2>
+    <p>Nuestro sitio utiliza cookies y tecnologías similares estrictamente necesarias para su funcionamiento y, con tu consentimiento, para fines analíticos. No usamos cookies publicitarias de terceros.</p>
+    <ul>
+      <li><strong>Cookies técnicas.</strong> Permiten el funcionamiento básico del sitio. No requieren consentimiento.</li>
+      <li><strong>Cookies analíticas.</strong> Métricas agregadas de uso del sitio. Puedes desactivarlas desde la configuración de tu navegador.</li>
+    </ul>
+
+    <h2 id="cambios"><span class="h-num">§ 08</span>Cambios al aviso</h2>
+    <p>Este Aviso de Privacidad puede modificarse para reflejar cambios legales, operativos o de nuestras prácticas. La versión vigente siempre estará disponible en <a href="aviso-privacidad.html">biometano.mx/aviso-privacidad</a>. Si los cambios son sustanciales, te lo comunicaremos por correo electrónico al menos <strong>15 días naturales</strong> antes de su entrada en vigor.</p>
+
+    <h2 id="contacto"><span class="h-num">§ 09</span>Contacto</h2>
+    <p>Para cualquier duda sobre este Aviso de Privacidad o sobre el tratamiento de tus datos personales:</p>
+    <ul>
+      <li><strong>Correo:</strong> <a href="mailto:datos@biometano.mx">datos@biometano.mx</a></li>
+      <li><strong>Teléfono:</strong> <a href="tel:+529993440904">+52 999 344 0904</a></li>
+      <li><strong>Domicilio:</strong> Mérida, Yucatán, México</li>
+    </ul>
+    <p>Si consideras que tu derecho a la protección de datos personales ha sido vulnerado, puedes acudir al <strong>Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales (INAI)</strong> en <a href="https://www.inai.org.mx" target="_blank" rel="noopener">www.inai.org.mx</a>.</p>
+
+    <div class="aviso-cta-row">
+      <div>
+        <h3>¿Listo para <em>evaluar tu proyecto</em>?</h3>
+        <p>Cinco minutos. Diagnóstico cualitativo en 48 h. Sin compromiso.</p>
+      </div>
+      <a class="btn-primary" href="evaluar-proyecto.html">Iniciar evaluación
+        <svg class="arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+    </div>
+
+  </article>
+
 </div>
+</div></section>
 
-<h2>1. Identidad y domicilio del responsable</h2>
-<p><strong>Biometano</strong>, empresa mexicana dedicada al diseño, construcción y operación de plantas de biogás y biometano, es responsable del tratamiento de sus datos personales y del cumplimiento del presente aviso. Para ejercer cualquier derecho relacionado con sus datos, puede contactarnos al correo <a href="mailto:gas@biometano.mx" style="color:var(--accent-ink)">gas@biometano.mx</a> o al teléfono +52 999 344 0904.</p>
+<script>
+/* TOC scroll-spy */
+(function(){
+  var links = document.querySelectorAll('.aviso-toc a[href^="#"]');
+  if (!links.length) return;
+  var sections = Array.from(links).map(function(a){
+    var id = a.getAttribute('href').slice(1);
+    return { link:a, el:document.getElementById(id) };
+  }).filter(function(s){ return s.el; });
 
-<h2>2. Datos personales que se recaban</h2>
-<p>Para los fines descritos en este aviso recabamos los siguientes datos:</p>
-<ul>
-  <li>Datos de identificación: nombre, cargo y empresa.</li>
-  <li>Datos de contacto: teléfono, correo electrónico y, en su caso, dirección postal.</li>
-  <li>Datos técnicos del proyecto: tipo y volumen de residuo, ubicación de la instalación, demanda energética estimada.</li>
-</ul>
-<p>No se recaban datos personales sensibles.</p>
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      sections.forEach(function(s){ s.link.classList.toggle('is-active', s.el === e.target); });
+    });
+  }, { rootMargin:'-30% 0px -60% 0px', threshold:0 });
 
-<h2>3. Finalidades del tratamiento</h2>
-<h3>Finalidades primarias (necesarias)</h3>
-<ul>
-  <li>Atender consultas y solicitudes de información técnica o comercial.</li>
-  <li>Elaborar evaluaciones, cotizaciones y propuestas de proyecto.</li>
-  <li>Formalizar y dar seguimiento a relaciones contractuales.</li>
-  <li>Dar cumplimiento a obligaciones legales y fiscales.</li>
-</ul>
-<h3>Finalidades secundarias (opcionales)</h3>
-<ul>
-  <li>Envío de boletines técnicos, contenido educativo y novedades del sector.</li>
-  <li>Invitación a eventos, seminarios y publicaciones.</li>
-</ul>
-<p>Si no desea que sus datos se traten para las finalidades secundarias, puede manifestarlo en cualquier momento al correo indicado.</p>
-
-<h2>4. Transferencias</h2>
-<p>No transferimos sus datos personales a terceros sin su consentimiento, salvo en los supuestos previstos por el artículo 37 de la LFPDPPP (autoridades competentes, sociedades controladoras o cumplimiento de obligaciones legales).</p>
-
-<h2>5. Derechos ARCO</h2>
-<p>Usted tiene derecho a <strong>Acceder, Rectificar, Cancelar u Oponerse</strong> al tratamiento de sus datos personales, así como a limitar su uso o divulgación. Para ejercer estos derechos envíe una solicitud por escrito al correo <a href="mailto:gas@biometano.mx" style="color:var(--accent-ink)">gas@biometano.mx</a> incluyendo: nombre completo, correo de contacto, descripción clara de la solicitud y copia de identificación oficial.</p>
-<p>El plazo de respuesta es de 20 días hábiles a partir de la recepción de la solicitud.</p>
-
-<h2>6. Revocación del consentimiento</h2>
-<p>Puede revocar el consentimiento otorgado para el tratamiento de sus datos en cualquier momento, mediante solicitud al mismo correo electrónico. La revocación no tendrá efectos retroactivos.</p>
-
-<h2>7. Uso de cookies y tecnologías similares</h2>
-<p>Este sitio web utiliza cookies técnicas necesarias para su funcionamiento y, en su caso, herramientas de medición de audiencia anonimizada. No se utilizan cookies publicitarias de terceros. Puede configurar su navegador para rechazar cookies.</p>
-
-<h2>8. Cambios al aviso</h2>
-<p>Nos reservamos el derecho de modificar el presente aviso. Cualquier cambio será publicado en esta misma página, indicando la fecha de última actualización al inicio del documento.</p>
-
-<p style="margin-top:40px; padding-top:24px; border-top:1px solid var(--line); font-family:var(--mono); font-size:11.5px; letter-spacing:0.08em; color:var(--ink-3)">Documento vigente desde enero 2026. Versión 1.0.</p>
-
-</div></div></section>
+  sections.forEach(function(s){ io.observe(s.el); });
+})();
+</script>
 
 <div data-slot="footer"></div><script src="assets/site.js"></script></body></html>

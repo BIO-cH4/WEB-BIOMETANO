@@ -1,155 +1,995 @@
 <!doctype html>
 <html lang="es-MX"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Evaluar mi proyecto de biometano | Biometano</title>
-<meta name="description" content="Formulario técnico para evaluar tu proyecto de biogás o biometano: caracterización de sustrato, demanda energética y destino del gas." />
+<meta name="description" content="Formulario técnico para evaluar tu proyecto de biogás o biometano: caracterización de sustrato, demanda energética y destino del gas. Diagnóstico cualitativo en vivo."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="assets/site.css"/></head>
+<link rel="stylesheet" href="assets/site.css"/>
+
+<style>
+/* =================================================================
+   EVALUAR v2 — overrides locales (sidebar, sustratos, radio cards, éxito)
+   ================================================================= */
+
+/* Hero más compacto */
+.page-hero.hero-evaluar{padding:64px 0 48px}
+.page-hero.hero-evaluar h1{margin-top:20px}
+.page-hero.hero-evaluar .lede{margin-top:24px; max-width:56ch}
+
+/* Layout: form + sidebar pegajoso */
+.evaluar-section{padding:64px 0 110px}
+.evaluar-layout{
+  display:grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  gap:48px;
+  align-items:start;
+}
+@media (max-width:1080px){
+  .evaluar-layout{grid-template-columns:1fr; gap:32px}
+}
+
+/* Override del .form-grid para que funcione dentro del grid */
+.evaluar-layout .form-grid{
+  max-width:none; margin:0;
+  padding:8px 48px 40px;
+}
+@media (max-width:760px){
+  .evaluar-layout .form-grid{padding:8px 24px 32px}
+}
+
+/* ---------- SIDEBAR ---------- */
+.evaluar-aside{
+  position:sticky; top:96px;
+  display:flex; flex-direction:column; gap:20px;
+}
+@media (max-width:1080px){
+  .evaluar-aside{position:static; top:auto}
+}
+.aside-card{
+  background:var(--bg-2); border:1px solid var(--line);
+  padding:24px 26px;
+}
+.aside-card h4{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase;
+  color:var(--accent-ink); font-weight:500; margin-bottom:16px;
+  display:flex; align-items:center; gap:10px;
+}
+.aside-card h4::before{content:""; width:18px; height:1px; background:var(--accent)}
+
+/* Diagnóstico vivo */
+.aside-diag .diag-empty{
+  font-size:14px; color:var(--ink-3); line-height:1.55; text-wrap:pretty;
+  font-style:italic;
+}
+.aside-diag .diag-list{display:none; flex-direction:column; gap:14px}
+.aside-diag.on .diag-empty{display:none}
+.aside-diag.on .diag-list{display:flex}
+.diag-row{display:grid; grid-template-columns:1fr auto; gap:8px; align-items:baseline; padding:10px 0; border-bottom:1px solid var(--line)}
+.diag-row:last-child{border-bottom:0}
+.diag-label{font-family:var(--mono); font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-3)}
+.diag-label small{display:block; text-transform:none; letter-spacing:0; color:var(--ink-3); font-size:11px; margin-top:2px; font-family:var(--sans)}
+.diag-val{font-family:var(--serif); font-size:22px; line-height:1; font-weight:300; color:var(--accent-ink); letter-spacing:-0.01em; text-align:right}
+.diag-val small{font-family:var(--mono); font-size:10.5px; color:var(--ink-3); margin-left:4px; letter-spacing:0.04em; font-weight:500}
+.diag-footnote{font-size:11.5px; color:var(--ink-3); line-height:1.5; margin-top:8px; padding-top:12px; border-top:1px solid var(--line)}
+
+/* Pasos próximos */
+.aside-steps ol{list-style:none; counter-reset:step; display:flex; flex-direction:column; gap:14px}
+.aside-steps li{counter-increment:step; padding-left:36px; position:relative; font-size:13.5px; color:var(--ink-2); line-height:1.5}
+.aside-steps li::before{
+  content:counter(step, decimal-leading-zero);
+  position:absolute; left:0; top:0;
+  font-family:var(--mono); font-size:10.5px; color:var(--accent-ink); letter-spacing:0.04em;
+  width:24px; height:24px; border:1px solid var(--line-2); border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center;
+  background:var(--bg);
+}
+.aside-steps b{color:var(--ink); font-weight:500; display:block; margin-bottom:2px; font-family:var(--sans); font-size:13.5px}
+
+/* Contacto */
+.aside-contact dl{display:flex; flex-direction:column; gap:14px}
+.aside-contact div{display:flex; flex-direction:column; gap:2px}
+.aside-contact dt{font-family:var(--mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-3)}
+.aside-contact dd{font-size:14px; color:var(--ink); font-weight:500}
+.aside-contact dd a{color:inherit; transition:color .15s}
+.aside-contact dd a:hover{color:var(--accent-ink)}
+
+/* ---------- SUSTRATOS REPETIBLES ---------- */
+.substrate-table{display:flex; flex-direction:column; gap:10px}
+.substrate-row{
+  display:grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.7fr) minmax(0, 0.85fr) minmax(0, 0.85fr) 32px;
+  gap:12px;
+  align-items:end;
+  padding:14px 14px 10px;
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:3px;
+  position:relative;
+}
+.substrate-row > label{display:flex; flex-direction:column; gap:6px}
+.substrate-row label > span:first-child{
+  font-family:var(--mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--ink-3); font-weight:500;
+}
+.substrate-row input,
+.substrate-row select{
+  margin-top:0 !important;
+  font-size:14.5px !important;
+  padding:6px 0 8px !important;
+}
+.substrate-row .remove-row{
+  width:28px; height:28px; border-radius:50%;
+  border:1px solid var(--line-2); background:transparent; color:var(--ink-3);
+  cursor:pointer; display:inline-flex; align-items:center; justify-content:center;
+  font-size:16px; line-height:1; transition: all .15s;
+  margin-bottom:6px;
+}
+.substrate-row .remove-row:hover{border-color:var(--ink); color:var(--ink); background:var(--bg-2)}
+.substrate-row.single .remove-row{opacity:0.35; cursor:not-allowed}
+.substrate-row.single .remove-row:hover{border-color:var(--line-2); color:var(--ink-3); background:transparent}
+
+.add-row{
+  align-self:flex-start;
+  font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--accent-ink); background:transparent; border:1px dashed var(--line-2);
+  padding:10px 18px; cursor:pointer; transition: all .15s;
+  display:inline-flex; align-items:center; gap:8px; border-radius:999px;
+}
+.add-row:hover{border-color:var(--accent-ink); background:var(--accent-soft)}
+.add-row .plus{font-size:14px; line-height:1}
+
+@media (max-width:760px){
+  .substrate-row{grid-template-columns:1fr 1fr; gap:14px}
+  .substrate-row > label:first-child{grid-column:1 / -1}
+  .substrate-row .remove-row{position:absolute; top:8px; right:8px; margin:0}
+}
+
+/* ---------- DESTINO COMO RADIO-CARDS ---------- */
+.destino-grid{
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;
+  margin-top:8px;
+}
+.destino-card{
+  position:relative;
+  border:1px solid var(--line); background:var(--bg);
+  padding:18px 18px 16px;
+  cursor:pointer; transition: all .15s;
+  display:flex; flex-direction:column; gap:10px;
+  min-height:130px;
+}
+.destino-card input{position:absolute; opacity:0; pointer-events:none; width:0; height:0; margin:0 !important}
+.destino-card:hover{border-color:var(--ink-3); background:var(--bg-2)}
+.destino-card .icon{
+  width:34px; height:34px; color:var(--ink-2);
+  display:flex; align-items:center; justify-content:center;
+}
+.destino-card .icon svg{width:28px; height:28px; stroke-width:1.4}
+.destino-card .d-title{
+  font-family:var(--sans); font-size:13.5px; font-weight:500; color:var(--ink); line-height:1.25;
+  letter-spacing:-0.005em; text-transform:none;
+}
+.destino-card .d-sub{
+  font-family:var(--sans); font-size:11.5px; color:var(--ink-3); line-height:1.4;
+  text-transform:none; letter-spacing:0; font-weight:400;
+  margin-top:auto;
+}
+.destino-card.is-checked{
+  border-color:var(--accent-ink);
+  background:color-mix(in oklab, var(--accent-soft) 50%, var(--bg));
+  box-shadow: inset 0 0 0 1px var(--accent-ink);
+}
+.destino-card.is-checked .icon{color:var(--accent-ink)}
+.destino-card.is-checked .d-title{color:var(--ink)}
+.destino-card.is-checked::after{
+  content:"✓"; position:absolute; top:10px; right:12px;
+  font-size:13px; color:var(--accent-ink); font-weight:600;
+}
+@media (max-width:760px){
+  .destino-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:480px){
+  .destino-grid{grid-template-columns:1fr}
+}
+
+/* ---------- CONSENTIMIENTO ---------- */
+.consent-row{
+  display:flex; align-items:flex-start; gap:14px;
+  padding:18px 20px; background:var(--bg);
+  border:1px solid var(--line); border-left:3px solid var(--accent);
+  margin-top:8px;
+}
+.consent-row input[type="checkbox"]{
+  appearance:none; -webkit-appearance:none;
+  width:18px; height:18px; min-width:18px;
+  border:1px solid var(--line-2); background:var(--bg);
+  cursor:pointer; margin-top:2px !important; padding:0 !important;
+  display:inline-flex; align-items:center; justify-content:center;
+  transition: all .15s; border-radius:2px;
+}
+.consent-row input[type="checkbox"]:checked{
+  background:var(--accent-ink); border-color:var(--accent-ink);
+}
+.consent-row input[type="checkbox"]:checked::after{
+  content:"✓"; color:var(--bg); font-size:12px; font-weight:700; line-height:1;
+}
+.consent-row label{
+  font-family:var(--sans) !important; font-size:13.5px !important;
+  letter-spacing:0 !important; text-transform:none !important;
+  color:var(--ink-2) !important; font-weight:400 !important;
+  line-height:1.55; cursor:pointer; flex:1;
+}
+.consent-row label a{color:var(--accent-ink); border-bottom:1px solid color-mix(in oklab, var(--accent-ink) 35%, transparent)}
+.consent-row label a:hover{border-bottom-color:var(--accent-ink)}
+
+/* ---------- ESTADO DE ÉXITO ---------- */
+.success-state{
+  display:none; padding:64px 56px 80px; max-width:920px; margin:0 auto;
+  background:var(--bg-2); border:1px solid var(--line); border-top:2px solid var(--accent);
+  text-align:left;
+}
+.success-state.on{display:block}
+.form-grid.hidden{display:none}
+.success-eyebrow{
+  font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase;
+  color:var(--accent-ink); font-weight:500; display:inline-flex; align-items:center; gap:12px;
+}
+.success-eyebrow::before{content:""; width:32px; height:1px; background:var(--accent)}
+.success-state h2{
+  font-family:var(--serif); font-weight:300; font-size:clamp(34px, 4vw, 52px);
+  letter-spacing:-0.025em; line-height:1; margin-top:20px;
+  font-variation-settings:"opsz" 144;
+}
+.success-state h2 em{font-style:italic; color:var(--accent-ink)}
+.success-state .folio{
+  font-family:var(--mono); font-size:13px; color:var(--ink-3); letter-spacing:0.08em;
+  margin-top:22px;
+}
+.success-state .folio b{color:var(--ink); font-weight:500; letter-spacing:0.12em}
+.success-state .next{margin-top:36px; padding-top:28px; border-top:1px solid var(--line)}
+.success-state .next h3{
+  font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--ink-3); font-weight:500; margin-bottom:18px;
+}
+.success-state .next ol{list-style:none; counter-reset:s; display:flex; flex-direction:column; gap:14px; padding:0; margin:0}
+.success-state .next li{counter-increment:s; padding-left:44px; position:relative; color:var(--ink-2); font-size:15px; line-height:1.55}
+.success-state .next li::before{
+  content:counter(s, decimal-leading-zero);
+  position:absolute; left:0; top:0;
+  font-family:var(--mono); font-size:11px; color:var(--accent-ink); letter-spacing:0.04em;
+  width:30px; height:30px; border:1px solid var(--accent); border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.success-state .next li b{color:var(--ink); font-weight:500; display:block; margin-bottom:2px}
+.success-actions{margin-top:36px; display:flex; gap:14px; flex-wrap:wrap}
+
+/* ---------- Honeypot (anti-spam) ---------- */
+.hp-field{position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden}
+
+/* Persistencia indicador */
+.draft-saved{font-family:var(--mono); font-size:10.5px; letter-spacing:0.12em; color:var(--ink-3); opacity:0; transition:opacity .25s}
+.draft-saved.on{opacity:1}
+
+/* Sector "Otro" follow-up */
+.sector-otro-row{display:none}
+.sector-otro-row.on{display:block; animation: fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0; transform:translateY(-4px)} to{opacity:1; transform:none}}
+
+/* ---------- VARIACIÓN VISUAL POR GRUPO ---------- */
+/* Cada grupo usa un fondo distinto + un acento de color izquierdo sutil */
+.form-grid .form-group{
+  position:relative;
+  margin-left:-48px; margin-right:-48px;
+  padding-left:48px; padding-right:48px;
+}
+.form-grid .form-group[data-section="a"]{ background:var(--bg-2) }
+.form-grid .form-group[data-section="b"]{ background:var(--bg) }
+.form-grid .form-group[data-section="c"]{ background:var(--bg-2) }
+.form-grid .form-group[data-section]::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:3px;
+  background:var(--accent);
+  opacity:0;
+  transition: opacity .2s ease;
+}
+.form-grid .form-group[data-section="a"]::before{ opacity:0.35 }
+.form-grid .form-group[data-section="b"]::before{ opacity:0.65 }
+.form-grid .form-group[data-section="c"]::before{ opacity:1 }
+@media (max-width:760px){
+  .form-grid .form-group{ margin-left:-24px; margin-right:-24px; padding-left:24px; padding-right:24px; }
+}
+
+/* ---------- ADJUNTAR ARCHIVOS ---------- */
+.upload-zone{
+  border:1.5px dashed var(--line-2);
+  background:var(--bg);
+  padding:28px 24px;
+  text-align:center;
+  cursor:pointer;
+  transition: all .15s ease;
+  position:relative;
+  border-radius:3px;
+}
+.upload-zone:hover,
+.upload-zone.is-dragover{
+  border-color:var(--accent-ink);
+  background:color-mix(in oklab, var(--accent-soft) 35%, var(--bg));
+}
+.upload-zone input[type="file"]{
+  position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%;
+}
+.upload-zone .uz-icon{
+  width:32px; height:32px; margin:0 auto 10px; color:var(--ink-3);
+  display:flex; align-items:center; justify-content:center;
+}
+.upload-zone.is-dragover .uz-icon{ color:var(--accent-ink) }
+.upload-zone .uz-title{
+  font-family:var(--sans); font-size:14.5px; color:var(--ink); font-weight:500;
+  letter-spacing:-0.005em;
+}
+.upload-zone .uz-title b{ color:var(--accent-ink); font-weight:500; text-decoration:underline; text-underline-offset:3px }
+.upload-zone .uz-sub{
+  font-family:var(--sans); font-size:12.5px; color:var(--ink-3); margin-top:6px;
+  line-height:1.45;
+}
+.file-list{ display:flex; flex-direction:column; gap:6px; margin-top:12px }
+.file-list:empty{ display:none }
+.file-item{
+  display:grid; grid-template-columns:auto 1fr auto auto; gap:12px; align-items:center;
+  padding:10px 14px; background:var(--bg-2); border:1px solid var(--line);
+  font-size:13px;
+}
+.file-item .fi-icon{ color:var(--ink-3); width:14px; height:14px }
+.file-item .fi-name{ color:var(--ink); font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0 }
+.file-item .fi-size{ font-family:var(--mono); font-size:11px; color:var(--ink-3); letter-spacing:0.04em }
+.file-item .fi-remove{
+  background:transparent; border:0; color:var(--ink-3); cursor:pointer;
+  font-size:18px; line-height:1; padding:0 4px; transition: color .15s;
+}
+.file-item .fi-remove:hover{ color:var(--ink) }
+</style>
+</head>
+
 <body data-page="evaluar"><div data-slot="header"></div>
+
 <div class="wrap"><div class="crumbs"><a href="index.html">Inicio</a><span>/</span><b>Evaluar mi proyecto</b></div></div>
 
-<section class="page-hero"><div class="wrap"><span class="eyebrow">Evaluar proyecto · Formulario técnico</span><h1>Cuéntanos lo <em>esencial</em>.</h1>
-<div class="page-hero-grid"><p class="lede">Con cinco datos técnicos básicos podemos hacerte un primer diagnóstico cualitativo. Tu información se trata bajo confidencialidad y solo la usamos para responderte.</p>
-<dl class="page-hero-meta"><div><dt>Teléfono</dt><dd><a href="tel:+529993440904" style="color:inherit">+52 999 344 0904</a></dd></div><div><dt>Correo</dt><dd><a href="/cdn-cgi/l/email-protection#91f6f0e2d1f3f8fefcf4e5f0fffebffce9" style="color:inherit"><span class="__cf_email__" data-cfemail="0c6b6d7f4c6e65636169786d6263226174">[email&#160;protected]</span></a></dd></div><div><dt>Respuesta</dt><dd>≤ 48 h hábiles</dd></div></dl></div></div></section>
-
-<section><div class="wrap">
-<form class="form-grid" id="evaluar-form" onsubmit="event.preventDefault(); alert('Gracias. Demo sin envío real — conectaríamos a tu CRM/ESP en producción.');">
-
-  <div class="form-progress">
-    <span class="count">Formulario técnico · <b id="filled-count">0</b> de <b id="total-count">9</b> campos esenciales</span>
-    <span class="bar" id="form-bar" style="--p:0%"></span>
-    <span>~ 3 min</span>
-  </div>
-
-  <div class="form-group">
-    <div class="group-head">
-      <div class="group-num">§ A</div>
-      <div>
-        <h3 class="group-title">Quién eres <em>y dónde</em>.</h3>
-        <p class="group-sub">Datos de contacto. Respondemos al correo o al teléfono que dejes; los usamos sólo para esta solicitud.</p>
-      </div>
-    </div>
-    <div class="form-row">
-      <label>Empresa <span class="req">*</span>
-        <input type="text" name="empresa" placeholder="Razón social o nombre comercial" required/>
-      </label>
-      <label>Sector
-        <select name="sector">
-          <option value="">Selecciona tu sector</option>
-          <option>Porcicultura</option>
-          <option>Lechería</option>
-          <option>Ganadería de engorda</option>
-          <option>Agroindustria</option>
-          <option>Procesadora de alimentos</option>
-          <option>Industria de bebidas</option>
-          <option>Aguas residuales · PTAR</option>
-          <option>Gestión de residuos</option>
-          <option>Otro</option>
-        </select>
-      </label>
-    </div>
-    <div class="form-row">
-      <label>Nombre y cargo <span class="req">*</span>
-        <input type="text" name="nombre" placeholder="Ej. Ana López · Directora de Sostenibilidad" required/>
-      </label>
-      <label>Correo <span class="req">*</span>
-        <input type="email" name="correo" placeholder="nombre@empresa.com" required/>
-      </label>
-    </div>
-    <div class="form-row">
-      <label>Teléfono <span class="hint">Opcional · WhatsApp si prefieres</span>
-        <input type="tel" name="tel" placeholder="+52 999 000 0000"/>
-      </label>
-      <label>Estado / país <span class="hint">Dónde está el proyecto</span>
-        <input type="text" name="ubicacion" placeholder="Ej. Yucatán, México"/>
-      </label>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <div class="group-head">
-      <div class="group-num">§ B</div>
-      <div>
-        <h3 class="group-title">Tu <em>proyecto</em>.</h3>
-        <p class="group-sub">El residuo es la base. Con volumen y tipo de sustrato ya podemos dar un primer rango de producción de biogás.</p>
-      </div>
-    </div>
-    <label>Sustrato disponible <span class="req">*</span>
-      <span class="hint">Tipo de residuo orgánico y volumen estimado — diario, mensual o anual</span>
-      <textarea name="sustrato" rows="3" placeholder="Ej. Estiércol porcino, ~50 m³/día. Lodos de PTAR, ~15 ton/día. Vinaza, ~120 m³/día." required></textarea>
-    </label>
-    <label>Demanda energética actual
-      <span class="hint">Combustible que sustituirías y consumo aproximado</span>
-      <textarea name="demanda" rows="3" placeholder="Ej. Gas natural ~500 m³/h en caldera de 8 t/h vapor. O diésel ~200 L/día en motogeneración."></textarea>
-    </label>
-  </div>
-
-  <div class="form-group">
-    <div class="group-head">
-      <div class="group-num">§ C</div>
-      <div>
-        <h3 class="group-title">Tu <em>objetivo</em>.</h3>
-        <p class="group-sub">El destino del gas define qué nivel de tratamiento conviene: acondicionamiento, upgrading o planta completa.</p>
-      </div>
-    </div>
-    <div class="form-row">
-      <label>Destino del biometano <span class="req">*</span>
-        <select name="destino" required>
-          <option value="">Selecciona destino</option>
-          <option>Autoconsumo térmico (caldera, horno)</option>
-          <option>Cogeneración eléctrica</option>
-          <option>Transporte vehicular (GNC / GNL)</option>
-          <option>Ducto virtual a tercero</option>
-          <option>Inyección a red de gas natural</option>
-          <option>Aún no definido — buscamos asesoría</option>
-        </select>
-      </label>
-      <label>Horizonte de decisión
-        <select name="horizonte">
-          <option value="">¿Cuándo planeas decidir?</option>
-          <option>0 – 3 meses · evaluación activa</option>
-          <option>3 – 6 meses · estudio en curso</option>
-          <option>6 – 12 meses · presupuesto futuro</option>
-          <option>12+ meses · exploración temprana</option>
-        </select>
-      </label>
-    </div>
-    <label>Notas adicionales
-      <span class="hint">Restricciones de espacio, contraparte, modelo financiero deseado (CAPEX vs. BOO), regulatorias…</span>
-      <textarea name="notas" rows="3" placeholder="Cualquier información relevante para entender mejor el proyecto."></textarea>
-    </label>
-  </div>
-
-  <div class="form-actions">
-    <span class="form-note">
-      <b>Confidencialidad.</b> Tus datos solo se usan para responder esta solicitud y dar un primer diagnóstico cualitativo. Bajo solicitud firmamos NDA antes del intercambio de información detallada.
-    </span>
-    <button class="btn-primary" type="submit">Enviar solicitud
-      <svg class="arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
-    </button>
-  </div>
-</form>
+<section class="page-hero hero-evaluar"><div class="wrap">
+  <span class="eyebrow">Evaluar proyecto · Formulario técnico</span>
+  <h1>Cuéntanos lo <em>esencial</em>.</h1>
+  <p class="lede">Con cinco datos técnicos básicos podemos hacerte un primer diagnóstico cualitativo. Tu información se trata bajo confidencialidad y solo la usamos para responderte.</p>
 </div></section>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* Progreso del formulario */
+<section class="evaluar-section"><div class="wrap">
+<div class="evaluar-layout">
+
+  <!-- ============== FORMULARIO ============== -->
+  <form class="form-grid" id="evaluar-form" novalidate>
+
+    <!-- Honeypot anti-spam (no llenar) -->
+    <div class="hp-field" aria-hidden="true">
+      <label>No llenar este campo
+        <input type="text" name="company_url" tabindex="-1" autocomplete="off"/>
+      </label>
+    </div>
+
+    <div class="form-progress">
+      <span class="count">Formulario técnico · <b id="filled-count">0</b> de <b id="total-count">5</b> campos esenciales</span>
+      <span class="bar" id="form-bar" style="--p:0%"></span>
+      <span class="draft-saved" id="draft-saved">Borrador guardado</span>
+      <span>~ 3 min</span>
+    </div>
+
+    <!-- §A — Contacto -->
+    <div class="form-group" data-section="a">
+      <div class="group-head">
+        <div class="group-num">§ A</div>
+        <div>
+          <h3 class="group-title">Quién eres <em>y dónde</em>.</h3>
+          <p class="group-sub">Datos de contacto. Respondemos al correo o al teléfono que dejes; los usamos sólo para esta solicitud.</p>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label>Empresa <span class="req">*</span>
+          <input type="text" name="empresa" placeholder="Razón social o nombre comercial" required/>
+        </label>
+        <label>Sector
+          <select name="sector" id="sector-select">
+            <option value="">Selecciona tu sector</option>
+            <option>Porcicultura</option>
+            <option>Lechería</option>
+            <option>Ganadería de engorda</option>
+            <option>Agroindustria</option>
+            <option>Procesadora de alimentos</option>
+            <option>Industria de bebidas</option>
+            <option>Aguas residuales · PTAR</option>
+            <option>Gestión de residuos</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="form-row sector-otro-row" id="sector-otro-row">
+        <label>Especifica el sector <span class="hint">¿Qué tipo de actividad o industria?</span>
+          <input type="text" name="sector_otro" placeholder="Ej. Procesamiento de café, rastros, mercado de abasto…"/>
+        </label>
+        <div></div>
+      </div>
+
+      <div class="form-row">
+        <label>Nombre y cargo <span class="req">*</span>
+          <input type="text" name="nombre" placeholder="Ej. Ana López · Directora de Sostenibilidad" required/>
+        </label>
+        <label>Correo <span class="req">*</span>
+          <input type="email" name="correo" placeholder="nombre@empresa.com" required/>
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label>Teléfono <span class="hint">Opcional · WhatsApp si prefieres</span>
+          <input type="tel" name="tel" placeholder="+52 999 000 0000"/>
+        </label>
+        <label>Estado / país <span class="hint">Dónde está el proyecto</span>
+          <input type="text" name="ubicacion" placeholder="Ej. Yucatán, México"/>
+        </label>
+      </div>
+    </div>
+
+    <!-- §B — Sustrato y demanda -->
+    <div class="form-group" data-section="b">
+      <div class="group-head">
+        <div class="group-num">§ B</div>
+        <div>
+          <h3 class="group-title">Tu <em>proyecto</em>.</h3>
+          <p class="group-sub">El residuo es la base. Agrega uno o varios sustratos — la co-digestión suele mejorar la producción y la estabilidad del proceso.</p>
+        </div>
+      </div>
+
+      <label style="margin-bottom:-12px">Sustratos disponibles <span class="req">*</span>
+        <span class="hint">Tipo de residuo, volumen y unidad. Puedes añadir varios si planeas co-digerir.</span>
+      </label>
+
+      <div class="substrate-table" id="substrate-table">
+        <!-- filas se insertan por JS -->
+      </div>
+
+      <button type="button" class="add-row" id="add-substrate">
+        <span class="plus">+</span> Añadir sustrato
+      </button>
+
+      <label>Demanda energética actual
+        <span class="hint">Combustible que sustituirías y consumo aproximado</span>
+        <textarea name="demanda" rows="3" placeholder="Ej. Gas natural ~500 m³/h en caldera de 8 t/h vapor. O diésel ~200 L/día en motogeneración."></textarea>
+      </label>
+
+      <label style="margin-bottom:-8px">Documentos de respaldo
+        <span class="hint">Análisis fisicoquímicos, layout del predio, recibos de gas/diésel, planos. Opcional pero acelera el diagnóstico.</span>
+      </label>
+
+      <div class="upload-zone" id="upload-zone">
+        <input type="file" id="file-input" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.dwg,.dxf,.zip"/>
+        <div class="uz-icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><path d="M16 22V6m0 0l-6 6m6-6l6 6"/><path d="M6 22v3a2 2 0 002 2h16a2 2 0 002-2v-3"/></svg>
+        </div>
+        <div class="uz-title">Arrastra archivos aquí o <b>busca en tu equipo</b></div>
+        <div class="uz-sub">PDF, DOC, XLS, imágenes, DWG/DXF · hasta 10 MB por archivo · máx. 6 archivos</div>
+      </div>
+      <div class="file-list" id="file-list" aria-live="polite"></div>
+    </div>
+
+    <!-- §C — Objetivo -->
+    <div class="form-group" data-section="c">
+      <div class="group-head">
+        <div class="group-num">§ C</div>
+        <div>
+          <h3 class="group-title">Tu <em>objetivo</em>.</h3>
+          <p class="group-sub">El destino del gas define qué nivel de tratamiento conviene: acondicionamiento, upgrading o planta completa.</p>
+        </div>
+      </div>
+
+      <label style="margin-bottom:-8px">Destino del biometano <span class="req">*</span>
+        <span class="hint">Selecciona el uso principal. Si combinas usos, elige el dominante.</span>
+      </label>
+
+      <div class="destino-grid" id="destino-grid">
+
+        <label class="destino-card">
+          <input type="radio" name="destino" value="Autoconsumo térmico" required/>
+          <span class="icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor"><path d="M16 4c-1.5 4 3 6 3 10s-3 5-3 8 3 5 3 6"/><circle cx="16" cy="22" r="6"/></svg></span>
+          <span class="d-title">Autoconsumo térmico</span>
+          <span class="d-sub">Caldera, horno o secador. Reemplazo de GN/diésel/LP.</span>
+        </label>
+
+        <label class="destino-card">
+          <input type="radio" name="destino" value="Cogeneración eléctrica"/>
+          <span class="icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor"><path d="M14 4l-7 14h7l-2 10 9-14h-7z" stroke-linejoin="round"/></svg></span>
+          <span class="d-title">Cogeneración eléctrica</span>
+          <span class="d-sub">Motogenerador. Energía + calor recuperado.</span>
+        </label>
+
+        <label class="destino-card">
+          <input type="radio" name="destino" value="Transporte GNC/GNL"/>
+          <span class="icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor"><path d="M4 22V12h18l4 5v5"/><circle cx="10" cy="24" r="2.5"/><circle cx="22" cy="24" r="2.5"/><path d="M4 14h6v8"/></svg></span>
+          <span class="d-title">Transporte GNC / GNL</span>
+          <span class="d-sub">Flota propia o venta a terceros como combustible vehicular.</span>
+        </label>
+
+        <label class="destino-card">
+          <input type="radio" name="destino" value="Ducto virtual"/>
+          <span class="icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor"><rect x="4" y="14" width="10" height="8" rx="1"/><path d="M14 18h6m4 0a3 3 0 100 6 3 3 0 000-6z"/><path d="M20 14V8m0 16v-2"/></svg></span>
+          <span class="d-title">Ducto virtual</span>
+          <span class="d-sub">Transporte en cilindros/tanques a un cliente cercano.</span>
+        </label>
+
+        <label class="destino-card">
+          <input type="radio" name="destino" value="Inyección a red"/>
+          <span class="icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor"><path d="M4 20h8l3-6 3 12 3-9 3 3h4"/></svg></span>
+          <span class="d-title">Inyección a red</span>
+          <span class="d-sub">Entrega a gasoducto. Requiere calidad biometano + medición.</span>
+        </label>
+
+        <label class="destino-card">
+          <input type="radio" name="destino" value="Sin definir"/>
+          <span class="icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor"><circle cx="16" cy="16" r="11"/><path d="M12 13a4 4 0 118 1c0 2-4 2-4 5"/><circle cx="16" cy="23" r="0.8" fill="currentColor" stroke="none"/></svg></span>
+          <span class="d-title">Aún no definido</span>
+          <span class="d-sub">Buscamos asesoría para elegir el mejor destino.</span>
+        </label>
+
+      </div>
+
+      <div class="form-row">
+        <label>Horizonte de decisión
+          <select name="horizonte">
+            <option value="">¿Cuándo planeas decidir?</option>
+            <option>0 – 3 meses · evaluación activa</option>
+            <option>3 – 6 meses · estudio en curso</option>
+            <option>6 – 12 meses · presupuesto futuro</option>
+            <option>12+ meses · exploración temprana</option>
+          </select>
+        </label>
+        <label>Modelo comercial preferido
+          <select name="modelo">
+            <option value="">¿Cómo te imaginas el proyecto?</option>
+            <option>CAPEX propio — compramos la planta</option>
+            <option>BOO — Biometano construye y opera</option>
+            <option>Mixto / financiado</option>
+            <option>Aún no lo sabemos</option>
+          </select>
+        </label>
+      </div>
+
+      <label>Superficie disponible
+        <span class="hint">Espacio aproximado donde podría ubicarse la planta. Crítico para predimensionar.</span>
+        <input type="text" name="superficie" placeholder="Ej. 1.2 ha, o ~6 000 m² al norte del predio"/>
+      </label>
+
+      <label>Notas adicionales
+        <span class="hint">Restricciones de espacio, contraparte, regulatorias, planos disponibles, análisis fisicoquímicos…</span>
+        <textarea name="notas" rows="3" placeholder="Cualquier información relevante para entender mejor el proyecto."></textarea>
+      </label>
+    </div>
+
+    <!-- Consentimiento + acciones -->
+    <div class="consent-row">
+      <input type="checkbox" id="consent" name="consent" required/>
+      <label for="consent">
+        He leído el <a href="aviso-privacidad.html">Aviso de Privacidad</a> y autorizo el tratamiento de mis datos por <b>Biometano</b> con la finalidad de responder esta solicitud y elaborar un primer diagnóstico cualitativo. <span class="req" style="color:var(--accent-ink)">*</span>
+      </label>
+    </div>
+
+    <div class="form-actions">
+      <span class="form-note">
+        <b>Confidencialidad.</b> Bajo solicitud firmamos NDA antes del intercambio de información detallada. No compartimos tus datos con terceros.
+      </span>
+      <button class="btn-primary" type="submit">Enviar solicitud
+        <svg class="arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </button>
+    </div>
+  </form>
+
+  <!-- ============== SIDEBAR ============== -->
+  <aside class="evaluar-aside">
+
+    <div class="aside-card aside-steps">
+      <h4>Qué pasa después</h4>
+      <ol>
+        <li><b>Revisamos tu caso</b>Un ingeniero senior lee el formulario y revisa viabilidad técnica preliminar.</li>
+        <li><b>Llamada de 30 min</b>Aclaramos dudas, validamos sustratos y destino, y firmamos NDA si aplica.</li>
+        <li><b>Diagnóstico cualitativo</b>Entregamos un documento corto: rangos esperados, configuración sugerida y siguientes pasos.</li>
+      </ol>
+    </div>
+
+    <div class="aside-card aside-contact">
+      <h4>¿Prefieres contactarnos directo?</h4>
+      <dl>
+        <div><dt>Teléfono / WhatsApp</dt><dd><a href="tel:+529993440904">+52 999 344 0904</a></dd></div>
+        <div><dt>Correo</dt><dd><a href="mailto:gas@biometano.mx">gas@biometano.mx</a></dd></div>
+        <div><dt>Tiempo de respuesta</dt><dd>≤ 48 h hábiles</dd></div>
+      </dl>
+    </div>
+
+  </aside>
+
+  <!-- ============== ÉXITO ============== -->
+  <div class="success-state" id="success-state">
+    <span class="success-eyebrow">Solicitud recibida</span>
+    <h2>Gracias. Vamos a <em>revisar tu caso</em>.</h2>
+    <p class="folio">Folio de seguimiento · <b id="folio-number">BMTN-0000-0000</b></p>
+
+    <div class="next">
+      <h3>Próximos pasos</h3>
+      <ol>
+        <li><b>Hoy o mañana</b>Recibirás un correo de acuse con tu folio y una copia editable de tu solicitud.</li>
+        <li><b>En las próximas 48 h hábiles</b>Un ingeniero senior te contacta para agendar una llamada de 30 minutos y, si aplica, firmar NDA.</li>
+        <li><b>5 a 10 días hábiles</b>Te entregamos el diagnóstico cualitativo: rangos esperados de producción, configuración sugerida, supuestos y siguientes pasos.</li>
+      </ol>
+    </div>
+
+    <div class="success-actions">
+      <a class="btn-primary" href="index.html">Volver al inicio
+        <svg class="arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+      <a class="btn-ghost" href="https://wa.me/529993440904">Escribirnos por WhatsApp</a>
+    </div>
+  </div>
+
+</div>
+</div></section>
+
+<script>
+/* =================================================================
+   EVALUAR v2 — lógica
+   ================================================================= */
 (function(){
-  var form=document.getElementById('evaluar-form');
-  if(!form) return;
-  var required=form.querySelectorAll('[required]');
-  var filledEl=document.getElementById('filled-count');
-  var totalEl=document.getElementById('total-count');
-  var barEl=document.getElementById('form-bar');
-  if(totalEl) totalEl.textContent=required.length;
-  function update(){
-    var n=0;
-    required.forEach(function(el){ if(el.value && el.value.trim().length>0) n++; });
-    if(filledEl) filledEl.textContent=n;
-    if(barEl) barEl.style.setProperty('--p', Math.round(n*100/required.length)+'%');
+  'use strict';
+
+  var form = document.getElementById('evaluar-form');
+  if (!form) return;
+
+  /* ---------- 1. Catálogo de sustratos con factores BMP promedio ----------
+     yieldM3PerTon: m³ biogás por TONELADA de sustrato fresco (a.s.f.)
+     ch4: fracción de metano típica
+     densityKgPerM3: si el usuario reporta m³ líquido, convertimos a kg
+  */
+  var SUBSTRATES = {
+    porcino:   { label:'Estiércol porcino (purín)',     y: 25,  ch4:0.62, density: 1010 },
+    bovino:    { label:'Estiércol bovino',              y: 25,  ch4:0.55, density: 1010 },
+    aves:      { label:'Gallinaza / pollinaza',         y: 90,  ch4:0.60, density:  600 },
+    lodos:     { label:'Lodos de PTAR',                 y: 22,  ch4:0.60, density: 1020 },
+    vinaza:    { label:'Vinaza de destilería',          y: 32,  ch4:0.60, density: 1030 },
+    fovm:      { label:'Residuos orgánicos / FORSU',    y:120,  ch4:0.60, density:  650 },
+    bebida:    { label:'Subproductos de bebidas',       y: 60,  ch4:0.60, density: 1010 },
+    alimento:  { label:'Subproductos de alimentos',     y:110,  ch4:0.58, density:  800 },
+    glicerina: { label:'Glicerina / lípidos',           y:300,  ch4:0.65, density: 1260 },
+    paja:      { label:'Paja / residuos agrícolas',     y:200,  ch4:0.55, density:  150 },
+    ensilaje:  { label:'Ensilaje de maíz / sorgo',      y:200,  ch4:0.55, density:  650 },
+    otro:      { label:'Otro / aún por caracterizar',   y: 50,  ch4:0.58, density:  800 }
+  };
+
+  /* ---------- 2. Render fila de sustrato ---------- */
+  var sustTable = document.getElementById('substrate-table');
+  var addBtn = document.getElementById('add-substrate');
+  var rowSeq = 0;
+
+  function buildOptions(){
+    var opts = '<option value="">Selecciona…</option>';
+    Object.keys(SUBSTRATES).forEach(function(k){
+      opts += '<option value="'+k+'">'+SUBSTRATES[k].label+'</option>';
+    });
+    return opts;
   }
-  form.addEventListener('input', update);
-  form.addEventListener('change', update);
-  update();
+
+  function addSubstrateRow(initial){
+    rowSeq++;
+    var row = document.createElement('div');
+    row.className = 'substrate-row';
+    row.dataset.rowId = rowSeq;
+    row.innerHTML =
+      '<label><span>Tipo</span>'+
+        '<select name="sustrato_tipo[]" class="s-tipo" required>'+ buildOptions() +'</select>'+
+      '</label>'+
+      '<label><span>Cantidad</span>'+
+        '<input type="number" name="sustrato_qty[]" class="s-qty" min="0" step="0.1" placeholder="0" required/>'+
+      '</label>'+
+      '<label><span>Unidad</span>'+
+        '<select name="sustrato_unit[]" class="s-unit">'+
+          '<option value="ton_dia">ton / día</option>'+
+          '<option value="m3_dia">m³ / día</option>'+
+          '<option value="kg_dia">kg / día</option>'+
+          '<option value="ton_mes">ton / mes</option>'+
+          '<option value="ton_anio">ton / año</option>'+
+        '</select>'+
+      '</label>'+
+      '<label><span>Frecuencia</span>'+
+        '<select name="sustrato_freq[]" class="s-freq">'+
+          '<option value="continuo">Continuo</option>'+
+          '<option value="diario">Diario</option>'+
+          '<option value="semanal">Semanal</option>'+
+          '<option value="campana">Por campaña</option>'+
+        '</select>'+
+      '</label>'+
+      '<button type="button" class="remove-row" aria-label="Quitar sustrato" title="Quitar">×</button>';
+
+    sustTable.appendChild(row);
+
+    if (initial){
+      if (initial.tipo) row.querySelector('.s-tipo').value = initial.tipo;
+      if (initial.qty != null) row.querySelector('.s-qty').value = initial.qty;
+      if (initial.unit) row.querySelector('.s-unit').value = initial.unit;
+      if (initial.freq) row.querySelector('.s-freq').value = initial.freq;
+    }
+
+    row.querySelector('.remove-row').addEventListener('click', function(){
+      var rows = sustTable.querySelectorAll('.substrate-row');
+      if (rows.length <= 1) return;
+      row.remove();
+      updateRowStates();
+      updateAll();
+    });
+
+    updateRowStates();
+  }
+
+  function updateRowStates(){
+    var rows = sustTable.querySelectorAll('.substrate-row');
+    rows.forEach(function(r){
+      r.classList.toggle('single', rows.length === 1);
+    });
+  }
+
+  addBtn.addEventListener('click', function(){ addSubstrateRow(); });
+
+  /* ---------- 3. Conversión a ton/día ---------- */
+  function toTonPerDay(qty, unit, substrateKey){
+    if (!qty || qty <= 0) return 0;
+    var dens = (SUBSTRATES[substrateKey] && SUBSTRATES[substrateKey].density) || 1000;
+    switch (unit){
+      case 'ton_dia':  return qty;
+      case 'kg_dia':   return qty / 1000;
+      case 'm3_dia':   return qty * dens / 1000; // m³ → ton vía densidad
+      case 'ton_mes':  return qty / 30;
+      case 'ton_anio': return qty / 365;
+      default: return qty;
+    }
+  }
+
+  /* ---------- 4. (Diagnóstico vivo retirado) ---------- */
+  function recomputeDiag(){ /* no-op */ }
+
+  /* ---------- 5. Sector "Otro" follow-up ---------- */
+  var sectorSelect = document.getElementById('sector-select');
+  var sectorOtroRow = document.getElementById('sector-otro-row');
+  sectorSelect.addEventListener('change', function(){
+    sectorOtroRow.classList.toggle('on', sectorSelect.value === 'Otro');
+  });
+
+  /* ---------- 6. Destino: pintar checked en card ---------- */
+  var destinoGrid = document.getElementById('destino-grid');
+  destinoGrid.addEventListener('change', function(){
+    destinoGrid.querySelectorAll('.destino-card').forEach(function(c){
+      var r = c.querySelector('input');
+      c.classList.toggle('is-checked', r.checked);
+    });
+  });
+
+  /* ---------- 6b. Adjuntar archivos ---------- */
+  var uploadZone = document.getElementById('upload-zone');
+  var fileInput  = document.getElementById('file-input');
+  var fileList   = document.getElementById('file-list');
+  var attached   = [];
+  var MAX_FILES = 6;
+  var MAX_SIZE  = 10 * 1024 * 1024;
+
+  function fmtBytes(b){
+    if (b < 1024) return b + ' B';
+    if (b < 1024*1024) return (b/1024).toFixed(0) + ' KB';
+    return (b/(1024*1024)).toFixed(1) + ' MB';
+  }
+  function fileIconSVG(){
+    return '<svg class="fi-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 1.5h6l4 4v9a1 1 0 01-1 1H3a1 1 0 01-1-1v-12a1 1 0 011-1z"/><path d="M9 1.5v4h4"/></svg>';
+  }
+  function renderFiles(){
+    fileList.innerHTML = '';
+    attached.forEach(function(f, i){
+      var row = document.createElement('div');
+      row.className = 'file-item';
+      row.innerHTML = fileIconSVG() +
+        '<span class="fi-name">'+ f.name +'</span>' +
+        '<span class="fi-size">'+ fmtBytes(f.size) +'</span>' +
+        '<button type="button" class="fi-remove" aria-label="Quitar" data-i="'+i+'">×</button>';
+      fileList.appendChild(row);
+    });
+  }
+  fileList.addEventListener('click', function(e){
+    var btn = e.target.closest('.fi-remove');
+    if (!btn) return;
+    attached.splice(parseInt(btn.dataset.i,10), 1);
+    renderFiles();
+  });
+  function addFiles(list){
+    var rejected = [];
+    for (var i=0; i<list.length; i++){
+      if (attached.length >= MAX_FILES){ rejected.push('Máx. '+MAX_FILES+' archivos'); break; }
+      var f = list[i];
+      if (f.size > MAX_SIZE){ rejected.push(f.name + ' (excede 10 MB)'); continue; }
+      var dup = attached.some(function(a){ return a.name===f.name && a.size===f.size; });
+      if (dup) continue;
+      attached.push({name:f.name, size:f.size});
+    }
+    if (rejected.length) alert('No se pudieron adjuntar:\n• ' + rejected.join('\n• '));
+    renderFiles();
+  }
+  fileInput.addEventListener('change', function(){ addFiles(fileInput.files); fileInput.value=''; });
+  ['dragenter','dragover'].forEach(function(ev){
+    uploadZone.addEventListener(ev, function(e){ e.preventDefault(); uploadZone.classList.add('is-dragover'); });
+  });
+  ['dragleave','drop'].forEach(function(ev){
+    uploadZone.addEventListener(ev, function(e){ e.preventDefault(); uploadZone.classList.remove('is-dragover'); });
+  });
+  uploadZone.addEventListener('drop', function(e){
+    if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files);
+  });
+
+  /* ---------- 7. Contador de progreso ----------
+     5 campos esenciales: empresa, nombre, correo, sustrato(≥1 fila válida), destino, consentimiento
+     (mostramos 5 al usuario; consent es independiente y obligatorio para enviar)
+  */
+  var filledEl = document.getElementById('filled-count');
+  var totalEl  = document.getElementById('total-count');
+  var barEl    = document.getElementById('form-bar');
+  var ESSENTIAL_TOTAL = 5;
+  totalEl.textContent = ESSENTIAL_TOTAL;
+
+  function countEssentials(){
+    var n = 0;
+    if (form.elements['empresa'].value.trim()) n++;
+    if (form.elements['nombre'].value.trim())  n++;
+    if (form.elements['correo'].value.trim())  n++;
+    // sustrato: al menos una fila con tipo + cantidad > 0
+    var rows = sustTable.querySelectorAll('.substrate-row');
+    var hasValid = false;
+    rows.forEach(function(r){
+      var tipo = r.querySelector('.s-tipo').value;
+      var qty  = parseFloat(r.querySelector('.s-qty').value) || 0;
+      if (tipo && qty > 0) hasValid = true;
+    });
+    if (hasValid) n++;
+    // destino
+    var destinoChecked = form.querySelector('input[name="destino"]:checked');
+    if (destinoChecked) n++;
+    return n;
+  }
+
+  function updateProgress(){
+    var n = countEssentials();
+    filledEl.textContent = n;
+    barEl.style.setProperty('--p', Math.round(n*100/ESSENTIAL_TOTAL)+'%');
+  }
+
+  function updateAll(){
+    updateProgress();
+    recomputeDiag();
+    saveDraft();
+  }
+
+  /* ---------- 8. Persistencia en localStorage ---------- */
+  var STORAGE_KEY = 'biometano_evaluar_draft_v2';
+  var savedTag = document.getElementById('draft-saved');
+  var saveTimer = null;
+
+  function collectState(){
+    var s = {};
+    ['empresa','sector','sector_otro','nombre','correo','tel','ubicacion',
+     'demanda','horizonte','modelo','superficie','notas']
+      .forEach(function(k){ if (form.elements[k]) s[k] = form.elements[k].value; });
+    var d = form.querySelector('input[name="destino"]:checked');
+    s.destino = d ? d.value : '';
+    s.sustratos = [];
+    sustTable.querySelectorAll('.substrate-row').forEach(function(r){
+      s.sustratos.push({
+        tipo: r.querySelector('.s-tipo').value,
+        qty:  r.querySelector('.s-qty').value,
+        unit: r.querySelector('.s-unit').value,
+        freq: r.querySelector('.s-freq').value
+      });
+    });
+    return s;
+  }
+
+  function saveDraft(){
+    if (saveTimer) clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(collectState()));
+        savedTag.classList.add('on');
+        setTimeout(function(){ savedTag.classList.remove('on'); }, 1500);
+      } catch(e){}
+    }, 600);
+  }
+
+  function loadDraft(){
+    var raw;
+    try { raw = localStorage.getItem(STORAGE_KEY); } catch(e){}
+    if (!raw) return null;
+    try { return JSON.parse(raw); } catch(e){ return null; }
+  }
+
+  /* ---------- 9. Bootstrap inicial ---------- */
+  var draft = loadDraft();
+
+  if (draft && Array.isArray(draft.sustratos) && draft.sustratos.length){
+    draft.sustratos.forEach(function(s){ addSubstrateRow(s); });
+  } else {
+    addSubstrateRow();
+  }
+
+  if (draft){
+    ['empresa','sector','sector_otro','nombre','correo','tel','ubicacion',
+     'demanda','horizonte','modelo','superficie','notas']
+      .forEach(function(k){
+        if (form.elements[k] && draft[k] != null) form.elements[k].value = draft[k];
+      });
+    if (draft.destino){
+      var rad = form.querySelector('input[name="destino"][value="'+draft.destino+'"]');
+      if (rad){ rad.checked = true; rad.dispatchEvent(new Event('change', {bubbles:true})); }
+    }
+    if (draft.sector === 'Otro') sectorOtroRow.classList.add('on');
+  }
+
+  form.addEventListener('input', updateAll);
+  form.addEventListener('change', updateAll);
+  updateAll();
+
+  /* ---------- 10. Submit ---------- */
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    // Honeypot
+    if (form.elements['company_url'].value){
+      // bot — silenciosamente ignorar
+      return;
+    }
+
+    // Validación básica
+    var missing = [];
+    if (!form.elements['empresa'].value.trim()) missing.push('Empresa');
+    if (!form.elements['nombre'].value.trim())  missing.push('Nombre y cargo');
+    if (!form.elements['correo'].value.trim())  missing.push('Correo');
+    var rows = sustTable.querySelectorAll('.substrate-row');
+    var hasValid = false;
+    rows.forEach(function(r){
+      var tipo = r.querySelector('.s-tipo').value;
+      var qty  = parseFloat(r.querySelector('.s-qty').value) || 0;
+      if (tipo && qty > 0) hasValid = true;
+    });
+    if (!hasValid) missing.push('Al menos un sustrato con cantidad');
+    if (!form.querySelector('input[name="destino"]:checked')) missing.push('Destino del biometano');
+    if (!form.elements['consent'].checked) missing.push('Aceptar el Aviso de Privacidad');
+
+    if (missing.length){
+      alert('Faltan campos esenciales:\n\n• ' + missing.join('\n• '));
+      return;
+    }
+
+    // Éxito: generar folio y mostrar pantalla
+    var folio = 'BMTN-' +
+      new Date().getFullYear() + '-' +
+      Math.random().toString(36).slice(2,6).toUpperCase();
+    document.getElementById('folio-number').textContent = folio;
+
+    form.classList.add('hidden');
+    document.querySelector('.evaluar-aside').style.display = 'none';
+    var ok = document.getElementById('success-state');
+    ok.classList.add('on');
+    // Centrar columna de éxito en el grid
+    document.querySelector('.evaluar-layout').style.gridTemplateColumns = '1fr';
+
+    // Limpiar borrador al enviar
+    try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+
+    // Scroll al inicio del éxito
+    var y = ok.getBoundingClientRect().top + window.pageYOffset - 80;
+    window.scrollTo({ top: y, behavior:'smooth' });
+  });
+
 })();
 </script>
 

@@ -9,6 +9,39 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/site.css" />
+
+<!-- AI-friendly: HowTo schema for the 5-step biometano process -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HowTo",
+  "name":"Cómo se produce biometano a partir de residuos orgánicos",
+  "description":"Proceso de 5 etapas para convertir residuos orgánicos en biometano con calidad de gas natural (CH₄ ≥ 97 %) mediante digestión anaeróbica, acondicionamiento y upgrading con absorción química.",
+  "totalTime":"P1Y",
+  "inLanguage":"es-MX",
+  "image":"https://biometano.mx/assets/og-image.png",
+  "supply":[
+    {"@type":"HowToSupply","name":"Residuo orgánico (estiércol, lodos, residuos vegetales o agroindustriales)"},
+    {"@type":"HowToSupply","name":"Solvente de aminas para upgrading (ciclo cerrado)"}
+  ],
+  "tool":[
+    {"@type":"HowToTool","name":"Biodigestor anaeróbico"},
+    {"@type":"HowToTool","name":"Sistema de acondicionamiento (remoción de H₂S y humedad)"},
+    {"@type":"HowToTool","name":"Torre de absorción química con aminas"},
+    {"@type":"HowToTool","name":"Analizador de calidad de gas en sitio"}
+  ],
+  "step":[
+    {"@type":"HowToStep","position":1,"name":"Sustrato orgánico","text":"Recepción y caracterización del residuo orgánico. Sólidos totales 3–12 %, carga orgánica 2–6 kgVS/m³·d. La consistencia y volumen del residuo definen el tamaño de planta.","url":"https://biometano.mx/index.html#proceso"},
+    {"@type":"HowToStep","position":2,"name":"Digestión anaeróbica","text":"Bacterias metanogénicas degradan la materia orgánica sin oxígeno y generan biogás crudo. Régimen mesofílico a 38–42 °C, tiempo de retención hidráulica HRT 25–45 días. CH₄ crudo 52–62 %.","url":"https://biometano.mx/tecnologia-biodigestion.html"},
+    {"@type":"HowToStep","position":3,"name":"Acondicionamiento","text":"Remoción de H₂S (< 4 ppm), humedad (punto de rocío < 4 °C) y partículas (< 1 µm). Indicado para uso térmico directo o motogeneración.","url":"https://biometano.mx/acondicionamiento-biogas.html"},
+    {"@type":"HowToStep","position":4,"name":"Upgrading con aminas","text":"El solvente captura CO₂ en torre de absorción. Se regenera térmicamente y vuelve al ciclo — bajo consumo de químicos. Remoción de CO₂ > 95 %, slippage de CH₄ < 0.5 %, ciclo de solvente cerrado.","url":"https://biometano.mx/upgrading-biogas.html"},
+    {"@type":"HowToStep","position":5,"name":"Biometano de salida","text":"Salida con CH₄ ≥ 97 %, índice Wobbe 38–47 MJ/m³. Verificación con analizadores en sitio 24/7. Listo para inyección a red, compresión a GNC, licuefacción a GNL o entrega por ducto virtual.","url":"https://biometano.mx/planta-de-biometano.html"}
+  ]
+}
+</script>
+
+<!-- AI-friendly: Article modified marker -->
+<meta name="article:modified" content="2026-05-23"/>
 <style>
   /* ------- HERO grande de la home ------- */
   .home-hero{padding:80px 0 90px; border-bottom:1px solid var(--line); overflow:hidden}
@@ -579,13 +612,13 @@
       <a class="btn-primary" href="evaluar-proyecto.html" style="background:var(--accent); padding:18px 28px; font-size:15px">Solicitar evaluación
         <svg class="arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
       </a>
-      <p style="color:oklch(0.65 0.008 70); margin-top:24px; font-family:var(--mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5631372516343f393b3322373839783b2e">[email&#160;protected]</a> · +52 999 344 0904</p>
+      <p style="color:oklch(0.65 0.008 70); margin-top:24px; font-family:var(--mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase">gas@biometano.mx · +52 999 344 0904</p>
     </div>
   </div>
 </section>
 
 <div data-slot="footer"></div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/site.js"></script>
+<script src="assets/site.js"></script>
 <script>
 /* ---- Cliente dual: audience toggle ---- */
 (function(){

@@ -1,7 +1,8 @@
 User-agent: *
 Allow: /
-Disallow: /index-bundle.html
-Disallow: /index-print.html
-Disallow: /index-standalone.html
 
+# Sitemaps
 Sitemap: https://biometano.mx/sitemap.xml
+
+# LLM-friendly summary
+# https://biometano.mx/llms.txt

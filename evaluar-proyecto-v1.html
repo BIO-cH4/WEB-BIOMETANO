@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es-MX"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Evaluar mi proyecto de biometano | Biometano</title>
+<meta name="description" content="Formulario técnico para evaluar tu proyecto de biogás o biometano: caracterización de sustrato, demanda energética y destino del gas." />
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/site.css"/></head>
+<body data-page="evaluar"><div data-slot="header"></div>
+<div class="wrap"><div class="crumbs"><a href="index.html">Inicio</a><span>/</span><b>Evaluar mi proyecto</b></div></div>
+
+<section class="page-hero"><div class="wrap"><span class="eyebrow">Evaluar proyecto · Formulario técnico</span><h1>Cuéntanos lo <em>esencial</em>.</h1>
+<div class="page-hero-grid"><p class="lede">Con cinco datos técnicos básicos podemos hacerte un primer diagnóstico cualitativo. Tu información se trata bajo confidencialidad y solo la usamos para responderte.</p>
+<dl class="page-hero-meta"><div><dt>Teléfono</dt><dd><a href="tel:+529993440904" style="color:inherit">+52 999 344 0904</a></dd></div><div><dt>Correo</dt><dd><a href="mailto:gas@biometano.mx" style="color:inherit">gas@biometano.mx</a></dd></div><div><dt>Respuesta</dt><dd>≤ 48 h hábiles</dd></div></dl></div></div></section>
+
+<section><div class="wrap">
+<form class="form-grid" id="evaluar-form" onsubmit="event.preventDefault(); alert('Gracias. Demo sin envío real — conectaríamos a tu CRM/ESP en producción.');">
+
+  <div class="form-progress">
+    <span class="count">Formulario técnico · <b id="filled-count">0</b> de <b id="total-count">9</b> campos esenciales</span>
+    <span class="bar" id="form-bar" style="--p:0%"></span>
+    <span>~ 3 min</span>
+  </div>
+
+  <div class="form-group">
+    <div class="group-head">
+      <div class="group-num">§ A</div>
+      <div>
+        <h3 class="group-title">Quién eres <em>y dónde</em>.</h3>
+        <p class="group-sub">Datos de contacto. Respondemos al correo o al teléfono que dejes; los usamos sólo para esta solicitud.</p>
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Empresa <span class="req">*</span>
+        <input type="text" name="empresa" placeholder="Razón social o nombre comercial" required/>
+      </label>
+      <label>Sector
+        <select name="sector">
+          <option value="">Selecciona tu sector</option>
+          <option>Porcicultura</option>
+          <option>Lechería</option>
+          <option>Ganadería de engorda</option>
+          <option>Agroindustria</option>
+          <option>Procesadora de alimentos</option>
+          <option>Industria de bebidas</option>
+          <option>Aguas residuales · PTAR</option>
+          <option>Gestión de residuos</option>
+          <option>Otro</option>
+        </select>
+      </label>
+    </div>
+    <div class="form-row">
+      <label>Nombre y cargo <span class="req">*</span>
+        <input type="text" name="nombre" placeholder="Ej. Ana López · Directora de Sostenibilidad" required/>
+      </label>
+      <label>Correo <span class="req">*</span>
+        <input type="email" name="correo" placeholder="nombre@empresa.com" required/>
+      </label>
+    </div>
+    <div class="form-row">
+      <label>Teléfono <span class="hint">Opcional · WhatsApp si prefieres</span>
+        <input type="tel" name="tel" placeholder="+52 999 000 0000"/>
+      </label>
+      <label>Estado / país <span class="hint">Dónde está el proyecto</span>
+        <input type="text" name="ubicacion" placeholder="Ej. Yucatán, México"/>
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="group-head">
+      <div class="group-num">§ B</div>
+      <div>
+        <h3 class="group-title">Tu <em>proyecto</em>.</h3>
+        <p class="group-sub">El residuo es la base. Con volumen y tipo de sustrato ya podemos dar un primer rango de producción de biogás.</p>
+      </div>
+    </div>
+    <label>Sustrato disponible <span class="req">*</span>
+      <span class="hint">Tipo de residuo orgánico y volumen estimado — diario, mensual o anual</span>
+      <textarea name="sustrato" rows="3" placeholder="Ej. Estiércol porcino, ~50 m³/día. Lodos de PTAR, ~15 ton/día. Vinaza, ~120 m³/día." required></textarea>
+    </label>
+    <label>Demanda energética actual
+      <span class="hint">Combustible que sustituirías y consumo aproximado</span>
+      <textarea name="demanda" rows="3" placeholder="Ej. Gas natural ~500 m³/h en caldera de 8 t/h vapor. O diésel ~200 L/día en motogeneración."></textarea>
+    </label>
+  </div>
+
+  <div class="form-group">
+    <div class="group-head">
+      <div class="group-num">§ C</div>
+      <div>
+        <h3 class="group-title">Tu <em>objetivo</em>.</h3>
+        <p class="group-sub">El destino del gas define qué nivel de tratamiento conviene: acondicionamiento, upgrading o planta completa.</p>
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Destino del biometano <span class="req">*</span>
+        <select name="destino" required>
+          <option value="">Selecciona destino</option>
+          <option>Autoconsumo térmico (caldera, horno)</option>
+          <option>Cogeneración eléctrica</option>
+          <option>Transporte vehicular (GNC / GNL)</option>
+          <option>Ducto virtual a tercero</option>
+          <option>Inyección a red de gas natural</option>
+          <option>Aún no definido — buscamos asesoría</option>
+        </select>
+      </label>
+      <label>Horizonte de decisión
+        <select name="horizonte">
+          <option value="">¿Cuándo planeas decidir?</option>
+          <option>0 – 3 meses · evaluación activa</option>
+          <option>3 – 6 meses · estudio en curso</option>
+          <option>6 – 12 meses · presupuesto futuro</option>
+          <option>12+ meses · exploración temprana</option>
+        </select>
+      </label>
+    </div>
+    <label>Notas adicionales
+      <span class="hint">Restricciones de espacio, contraparte, modelo financiero deseado (CAPEX vs. BOO), regulatorias…</span>
+      <textarea name="notas" rows="3" placeholder="Cualquier información relevante para entender mejor el proyecto."></textarea>
+    </label>
+  </div>
+
+  <div class="form-actions">
+    <span class="form-note">
+      <b>Confidencialidad.</b> Tus datos solo se usan para responder esta solicitud y dar un primer diagnóstico cualitativo. Bajo solicitud firmamos NDA antes del intercambio de información detallada.
+    </span>
+    <button class="btn-primary" type="submit">Enviar solicitud
+      <svg class="arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+    </button>
+  </div>
+</form>
+</div></section>
+
+<script>
+/* Progreso del formulario */
+(function(){
+  var form=document.getElementById('evaluar-form');
+  if(!form) return;
+  var required=form.querySelectorAll('[required]');
+  var filledEl=document.getElementById('filled-count');
+  var totalEl=document.getElementById('total-count');
+  var barEl=document.getElementById('form-bar');
+  if(totalEl) totalEl.textContent=required.length;
+  function update(){
+    var n=0;
+    required.forEach(function(el){ if(el.value && el.value.trim().length>0) n++; });
+    if(filledEl) filledEl.textContent=n;
+    if(barEl) barEl.style.setProperty('--p', Math.round(n*100/required.length)+'%');
+  }
+  form.addEventListener('input', update);
+  form.addEventListener('change', update);
+  update();
+})();
+</script>
+
+<div data-slot="footer"></div><script src="assets/site.js"></script></body></html>
