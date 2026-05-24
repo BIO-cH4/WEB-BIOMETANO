@@ -151,24 +151,112 @@
     add('meta[name="twitter:description"]',{name:'twitter:description', content: desc});
     add('meta[name="twitter:image"]',      {name:'twitter:image', content: ogImg});
 
-    // JSON-LD Organization (once, only on home)
-    if (document.body.dataset.page === 'home' && !head.querySelector('script[type="application/ld+json"]')) {
-      const ld = document.createElement('script');
-      ld.type = 'application/ld+json';
-      ld.textContent = JSON.stringify({
+    // JSON-LD: Organization + WebSite (home), BreadcrumbList (every page with crumbs),
+    // Article (knowledge articles), Service (solution / application pages)
+    const ldHas = (head.querySelectorAll('script[type="application/ld+json"]').length > 0);
+    const page = document.body.dataset.page || '';
+
+    function pushLD(obj){
+      const s = document.createElement('script');
+      s.type = 'application/ld+json';
+      s.textContent = JSON.stringify(obj);
+      head.appendChild(s);
+    }
+
+    // 1) Organization + WebSite — only on home (and only if not already inlined)
+    if (page === 'home' && !ldHas) {
+      pushLD({
         "@context":"https://schema.org",
         "@type":"Organization",
         "name":"Biometano",
+        "alternateName":"Biometano México",
         "url":base,
         "logo":base+"assets/logo-horizontal.png",
-        "description":desc,
+        "image":ogImg,
+        "description":"Empresa mexicana especializada en plantas de biogás y biometano. Diseño, construcción y operación de sistemas de aprovechamiento del biogás: acondicionamiento, upgrading y biometano de alta pureza (CH₄ ≥ 97 %).",
         "email":"gas@biometano.mx",
         "telephone":"+52-999-344-0904",
+        "foundingDate":"2021",
         "address":{"@type":"PostalAddress","addressCountry":"MX"},
+        "areaServed":{"@type":"Country","name":"México"},
         "sameAs":["https://www.linkedin.com/company/biometano-mx/"],
-        "areaServed":"MX"
+        "knowsAbout":[
+          "Biogás","Biometano","Gas natural renovable","Upgrading de biogás",
+          "Absorción química con aminas","Digestión anaeróbica","Acondicionamiento de biogás",
+          "Ducto virtual","GNC","GNL","NOM-001-SECRE","Calidad del biometano",
+          "Plantas de biogás en México","EPC y O&M de biogás"
+        ],
+        "contactPoint":{"@type":"ContactPoint","telephone":"+52-999-344-0904","contactType":"sales","email":"gas@biometano.mx","areaServed":"MX","availableLanguage":["es","en"]}
       });
-      head.appendChild(ld);
+      pushLD({
+        "@context":"https://schema.org",
+        "@type":"WebSite",
+        "name":"Biometano",
+        "url":base,
+        "inLanguage":"es-MX",
+        "publisher":{"@type":"Organization","name":"Biometano","url":base}
+      });
+    }
+
+    // 2) BreadcrumbList — derived from .crumbs anchors + bold leaf
+    const crumbsEl = document.querySelector('.crumbs');
+    if (crumbsEl) {
+      const items = [];
+      let pos = 1;
+      crumbsEl.querySelectorAll('a').forEach(a => {
+        items.push({"@type":"ListItem","position":pos++,"name":a.textContent.trim(),"item":base + (a.getAttribute('href')||'').replace(/^\.?\//,'')});
+      });
+      const leaf = crumbsEl.querySelector('b');
+      if (leaf) items.push({"@type":"ListItem","position":pos,"name":leaf.textContent.trim(),"item":url});
+      if (items.length > 1) pushLD({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":items});
+    }
+
+    // 3) Article schema for /art-*.html pages
+    if (/^art-/.test(path) || page === 'conocimiento-article') {
+      const eyebrow = (document.querySelector('.page-hero .eyebrow')||{}).textContent || 'Artículo';
+      const h1 = (document.querySelector('h1')||{}).textContent || title;
+      const pubMeta = document.querySelector('meta[name="article:published"]');
+      const modMeta = document.querySelector('meta[name="article:modified"]');
+      const today = new Date().toISOString().slice(0,10);
+      pushLD({
+        "@context":"https://schema.org",
+        "@type":"Article",
+        "headline":h1.trim(),
+        "description":desc,
+        "image":ogImg,
+        "datePublished":pubMeta ? pubMeta.content : "2026-01-15",
+        "dateModified":modMeta ? modMeta.content : today,
+        "author":{"@type":"Organization","name":"Equipo Biometano","url":base+"empresa.html"},
+        "publisher":{"@type":"Organization","name":"Biometano","logo":{"@type":"ImageObject","url":base+"assets/logo-horizontal.png"}},
+        "mainEntityOfPage":{"@type":"WebPage","@id":url},
+        "inLanguage":"es-MX",
+        "articleSection":eyebrow.trim()
+      });
+    }
+
+    // 4) Service schema for solution / application / sector pages
+    const serviceMap = {
+      'acondicionamiento-biogas':{name:'Acondicionamiento de biogás', stype:'Tratamiento de gas'},
+      'upgrading-biogas':{name:'Upgrading de biogás', stype:'Purificación de gas a biometano'},
+      'planta-de-biometano':{name:'Planta de biometano', stype:'Ingeniería, construcción y operación EPC + O&M'},
+      'biometano-industria':{name:'Biometano industrial', stype:'Suministro de gas natural renovable a la industria'},
+      'biometano-transporte':{name:'Biometano vehicular (GNC/GNL)', stype:'Combustible renovable para transporte'},
+      'ducto-virtual':{name:'Ducto virtual de biometano', stype:'Distribución de biometano comprimido'}
+    };
+    const slug = path.replace(/\.html$/,'');
+    if (serviceMap[slug]) {
+      const s = serviceMap[slug];
+      pushLD({
+        "@context":"https://schema.org",
+        "@type":"Service",
+        "serviceType":s.stype,
+        "name":s.name,
+        "description":desc,
+        "provider":{"@type":"Organization","name":"Biometano","url":base},
+        "areaServed":{"@type":"Country","name":"México"},
+        "url":url,
+        "category":"Gas natural renovable"
+      });
     }
   }
 
